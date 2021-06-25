@@ -11,7 +11,7 @@
 	<groupId>com.adverity</groupId>
 	<artifactId>simple-data-adverity-warehouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>simple-data-adverity-warehouse</name>
 	<description>Interview challenge for Adverity</description>
 	<properties>
