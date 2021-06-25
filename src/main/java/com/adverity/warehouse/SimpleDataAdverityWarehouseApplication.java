@@ -1,4 +1,4 @@
-package com.adverity.simpledataadveritywarehouse;
+package com.adverity.warehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
