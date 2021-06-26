@@ -1,0 +1,29 @@
+type Query {
+    totalClicks(dimensions: Dimension): Int!
+    campaignMetrics: [DataMetrics]
+    campaigns: [Campaign]
+}
+
+enum Dimension {
+    DATA_SOURCE
+    CAMPAIGN
+}
+
+type DataMetrics {
+    campaign_metric_id: Int!
+    data_source: DataSource!
+    campaign: String!
+    daily: String!
+    clicks: Int
+    impression: Int
+}
+
+type DataSource {
+    id: Int!
+    name: String
+}
+
+type Campaign {
+    id: Int!
+    name: String
+}
