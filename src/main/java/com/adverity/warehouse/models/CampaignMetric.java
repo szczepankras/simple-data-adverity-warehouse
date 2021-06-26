@@ -3,7 +3,7 @@ package com.adverity.warehouse.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity(name = "campaign_metrics")
 @Data
