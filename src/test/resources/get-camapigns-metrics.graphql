@@ -1,8 +1,13 @@
 {
-    campaignMetrics {
+    campaignMetrics{
         daily
         data_source {
             name
         }
+        campaign {
+            name
+        }
+        clicks
+        impressions
     }
 }

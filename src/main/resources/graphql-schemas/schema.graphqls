@@ -10,20 +10,17 @@ enum Dimension {
 }
 
 type DataMetrics {
-    campaign_metric_id: Int!
     data_source: DataSource!
-    campaign: String!
+    campaign: Campaign!
     daily: String!
     clicks: Int
-    impression: Int
+    impressions: Int
 }
 
 type DataSource {
-    id: Int!
     name: String
 }
 
 type Campaign {
-    id: Int!
     name: String
 }

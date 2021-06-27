@@ -1,17 +1,7 @@
 package com.adverity.warehouse;
 
-import com.adverity.warehouse.models.Campaign;
-import com.adverity.warehouse.models.CampaignMetric;
-import com.adverity.warehouse.models.DataSource;
-import com.adverity.warehouse.repositories.CampaignMetricsRepository;
-import com.adverity.warehouse.repositories.CampaignRepository;
-import com.adverity.warehouse.repositories.DataSourceRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class SimpleDataAdverityWarehouseApplication {
@@ -20,7 +10,7 @@ public class SimpleDataAdverityWarehouseApplication {
         SpringApplication.run(SimpleDataAdverityWarehouseApplication.class, args);
     }
 
-    @Bean
+/*    @Bean
     public CommandLineRunner demo(DataSourceRepository dataSourceRepository,
                                   CampaignRepository campaignRepository,
                                   CampaignMetricsRepository campaignMetricsRepository) {
@@ -43,5 +33,5 @@ public class SimpleDataAdverityWarehouseApplication {
             campaignMetricsRepository.save(campaignMetric);
 
         };
-    }
+    }*/
 }
