@@ -1,4 +1,4 @@
-package com.adverity.warehouse.services.business;
+package com.adverity.warehouse.services.core;
 
 import com.adverity.warehouse.models.CampaignMetric;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;

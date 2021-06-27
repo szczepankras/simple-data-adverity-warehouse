@@ -1,12 +1,12 @@
 type Query {
-    totalClicks(dimensions: [QueryParams]!): Int!
+    totalClicks(queryParams: [QueryParams]!): Float
     campaignMetrics: [DataMetrics]
 }
 
 type DataMetrics {
     dataSource: DataSource!
     campaign: Campaign!
-    daily: String!
+    date: String!
     clicks: Int
     impressions: Int
 }
@@ -20,15 +20,7 @@ type Campaign {
 }
 
 input QueryParams  {
-    name: String!
-    dimension: DimensionType!
-}
-enum DimensionType {
-    DATA_SOURCE,
-    CAMPAIGN
-}
-
-type Date {
-    startDate: String,
-    endDate: String
+    name: String
+    dateFrom: String
+    dateTo: String
 }
