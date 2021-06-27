@@ -8,4 +8,6 @@ public interface CampaignsMetricsDataFetcherService {
     DataFetcher getCampaignMetrics();
 
     DataFetcher<DataSource> getDataSource();
+
+    DataFetcher<Long> getTotalClicks();
 }

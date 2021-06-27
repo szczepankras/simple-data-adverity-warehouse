@@ -1,16 +1,10 @@
 type Query {
-    totalClicks(dimensions: Dimension): Int!
+    totalClicks(dimensions: [Dimension]): Int!
     campaignMetrics: [DataMetrics]
-    campaigns: [Campaign]
-}
-
-enum Dimension {
-    DATA_SOURCE
-    CAMPAIGN
 }
 
 type DataMetrics {
-    data_source: DataSource!
+    dataSource: DataSource!
     campaign: Campaign!
     daily: String!
     clicks: Int
@@ -23,4 +17,8 @@ type DataSource {
 
 type Campaign {
     name: String
+}
+
+input Dimension  {
+    name: String!
 }

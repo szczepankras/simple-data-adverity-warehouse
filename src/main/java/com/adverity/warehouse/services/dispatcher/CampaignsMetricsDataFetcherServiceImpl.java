@@ -8,6 +8,8 @@ import graphql.schema.DataFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @Slf4j
 public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsDataFetcherService {
@@ -35,6 +37,14 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
         return dataFetchingEnvironment -> {
             CampaignMetric campaignMetrics = dataFetchingEnvironment.getSource();
             return campaignMetrics.getDataSource();
+        };
+    }
+
+    @Override
+    public DataFetcher<Long> getTotalClicks() {
+        return dataFetchingEnvironment -> {
+            Map<String, Object> arguments = dataFetchingEnvironment.getArguments();
+            return null;
         };
     }
 }

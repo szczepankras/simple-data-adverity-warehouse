@@ -55,9 +55,8 @@ public class CampaignsMetricsController {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
-                .type(newTypeWiring("DataMetrics")
-                        .dataFetcher("data_source", campaignsMetricsDataFetcherService.getDataSource()))
+                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
+                        .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks()))
                 .build();
     }
 }

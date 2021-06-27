@@ -1,7 +1,7 @@
 {
     campaignMetrics{
         daily
-        data_source {
+        dataSource {
             name
         }
         campaign {

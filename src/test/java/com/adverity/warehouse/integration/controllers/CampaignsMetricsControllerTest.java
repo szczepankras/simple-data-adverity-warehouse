@@ -60,7 +60,7 @@ public class CampaignsMetricsControllerTest {
         GraphQLResponse response = graphQLTestTemplate.postForResource("get-camapigns-metrics.graphql");
         assertThat(response.isOk()).isTrue();
         assertThat(response.get("$.data.campaignMetrics[0].daily")).isEqualTo(campaignMetricGoogle.getDaily().toString());
-        assertThat(response.get("$.data.campaignMetrics[0].data_source.name")).isEqualTo(campaignMetricGoogle.getDataSource().getName());
+        assertThat(response.get("$.data.campaignMetrics[0].dataSource.name")).isEqualTo(campaignMetricGoogle.getDataSource().getName());
         assertThat(response.get("$.data.campaignMetrics[0].campaign.name")).isEqualTo(campaignMetricGoogle.getCampaign().getName());
         assertThat(response.get("$.data.campaignMetrics[0].clicks", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
         assertThat(response.get("$.data.campaignMetrics[0].impressions", Integer.class)).isEqualTo(campaignMetricGoogle.getImpressions());
