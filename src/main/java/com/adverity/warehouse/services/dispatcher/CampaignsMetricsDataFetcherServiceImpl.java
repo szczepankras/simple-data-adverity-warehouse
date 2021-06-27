@@ -1,9 +1,6 @@
 package com.adverity.warehouse.services.dispatcher;
 
-import com.adverity.warehouse.models.CampaignMetric;
-import com.adverity.warehouse.models.DataSource;
-import com.adverity.warehouse.repositories.CampaignMetricsRepository;
-import com.adverity.warehouse.repositories.CampaignRepository;
+import com.adverity.warehouse.services.business.GetCampaignMetricsService;
 import graphql.schema.DataFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,36 +11,22 @@ import java.util.Map;
 @Slf4j
 public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsDataFetcherService {
 
-    private final CampaignRepository campaignRepository;
-    private final CampaignMetricsRepository campaignMetricsRepository;
+    private final GetCampaignMetricsService getCampaignMetricsService;
 
-    public CampaignsMetricsDataFetcherServiceImpl(CampaignRepository campaignRepository, CampaignMetricsRepository campaignMetricsRepository) {
-        this.campaignRepository = campaignRepository;
-        this.campaignMetricsRepository = campaignMetricsRepository;
+    public CampaignsMetricsDataFetcherServiceImpl(GetCampaignMetricsService getCampaignMetricsService) {
+        this.getCampaignMetricsService = getCampaignMetricsService;
     }
 
     @Override
     public DataFetcher getCampaignMetrics() {
-        return dataFetchingEnvironment -> {
-            log.info("Fetching campaign metrics status=started");
-            Iterable<CampaignMetric> campaignMetrics = campaignMetricsRepository.findAll();
-            log.info("Fetching campaign metrics status=finished");
-            return campaignMetrics;
-        };
-    }
-
-    @Override
-    public DataFetcher<DataSource> getDataSource() {
-        return dataFetchingEnvironment -> {
-            CampaignMetric campaignMetrics = dataFetchingEnvironment.getSource();
-            return campaignMetrics.getDataSource();
-        };
+        return dataFetchingEnvironment -> getCampaignMetricsService.getCampaignMetrics();
     }
 
     @Override
     public DataFetcher<Long> getTotalClicks() {
         return dataFetchingEnvironment -> {
             Map<String, Object> arguments = dataFetchingEnvironment.getArguments();
+            log.info("total clicks requestes with args={}", arguments);
             return null;
         };
     }

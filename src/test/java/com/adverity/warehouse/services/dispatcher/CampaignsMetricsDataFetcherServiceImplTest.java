@@ -1,6 +1,5 @@
 package com.adverity.warehouse.services.dispatcher;
 
-import com.adverity.warehouse.models.DataSource;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import com.adverity.warehouse.repositories.CampaignRepository;
 import graphql.schema.DataFetcher;
@@ -32,15 +31,6 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     void shouldGetCampaignMetrics() {
         //when
         DataFetcher campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getCampaignMetrics();
-
-        //then
-        assertNotNull(campaignMetricsDataFetcher);
-    }
-
-    @Test
-    void shouldGetDataSource() {
-        //when
-        DataFetcher<DataSource> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getDataSource();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);

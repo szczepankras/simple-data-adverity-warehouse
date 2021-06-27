@@ -17,8 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
-
+import static com.adverity.warehouse.common.DataGeneratorHelper.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -94,27 +93,5 @@ public class CampaignsMetricsControllerTest {
         campaignMetricsRepository.delete(campaignMetricTwitter);
         dataSourceRepository.delete(dataSourceTwitter);
         campaignRepository.delete(twitterCampaign);
-    }
-
-    private CampaignMetric createFakeCampaignMetric(DataSource dataSource, Campaign campaign) {
-        CampaignMetric campaignMetric = new CampaignMetric();
-        campaignMetric.setCampaign(campaign);
-        campaignMetric.setDataSource(dataSource);
-        campaignMetric.setDaily(LocalDate.of(2021, 6, 26));
-        campaignMetric.setClicks(10);
-        campaignMetric.setImpressions(40);
-        return campaignMetric;
-    }
-
-    private DataSource createFakeDataSource(String name) {
-        DataSource dataSource = new DataSource();
-        dataSource.setName(name);
-        return dataSource;
-    }
-
-    private Campaign createFakeCampaign(String name) {
-        Campaign campaign = new Campaign();
-        campaign.setName(name);
-        return campaign;
     }
 }

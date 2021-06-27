@@ -1,5 +1,5 @@
 type Query {
-    totalClicks(dimensions: [Dimension]): Int!
+    totalClicks(dimensions: [QueryParams]!): Int!
     campaignMetrics: [DataMetrics]
 }
 
@@ -19,6 +19,16 @@ type Campaign {
     name: String
 }
 
-input Dimension  {
+input QueryParams  {
     name: String!
+    dimension: DimensionType!
+}
+enum DimensionType {
+    DATA_SOURCE,
+    CAMPAIGN
+}
+
+type Date {
+    startDate: String,
+    endDate: String
 }
