@@ -54,11 +54,19 @@ public class CampaignsMetricsControllerTest {
     }
 
     @Test
+    public void getTotalClicks() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalClicks", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
+    }
+
+    @Test
     public void getCampaignsMetrics() throws Exception {
 
-        GraphQLResponse response = graphQLTestTemplate.postForResource("get-camapigns-metrics.graphql");
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-campaigns-metrics.graphql");
         assertThat(response.isOk()).isTrue();
-        assertThat(response.get("$.data.campaignMetrics[0].daily")).isEqualTo(campaignMetricGoogle.getDaily().toString());
+        assertThat(response.get("$.data.campaignMetrics[0].date")).isEqualTo(campaignMetricGoogle.getDate().toString());
         assertThat(response.get("$.data.campaignMetrics[0].dataSource.name")).isEqualTo(campaignMetricGoogle.getDataSource().getName());
         assertThat(response.get("$.data.campaignMetrics[0].campaign.name")).isEqualTo(campaignMetricGoogle.getCampaign().getName());
         assertThat(response.get("$.data.campaignMetrics[0].clicks", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());

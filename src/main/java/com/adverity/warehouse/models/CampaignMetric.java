@@ -13,7 +13,7 @@ public class CampaignMetric {
     @Column(name = "campaign_metric_id")
     private Long id;
 
-    private LocalDate daily;
+    private LocalDate date;
     private Integer clicks;
     private Integer impressions;
 

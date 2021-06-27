@@ -1,6 +1,6 @@
 {
     campaignMetrics{
-        daily
+        date
         dataSource {
             name
         }

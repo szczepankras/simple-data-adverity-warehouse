@@ -6,7 +6,7 @@ type Query {
 type DataMetrics {
     dataSource: DataSource!
     campaign: Campaign!
-    date: String!
+    date: String
     clicks: Int
     impressions: Int
 }

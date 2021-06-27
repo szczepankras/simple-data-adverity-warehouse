@@ -19,7 +19,7 @@ public class DataGeneratorHelper {
         CampaignMetric campaignMetric = new CampaignMetric();
         campaignMetric.setCampaign(campaign);
         campaignMetric.setDataSource(dataSource);
-        campaignMetric.setDaily(LocalDate.of(2021, 6, 26));
+        campaignMetric.setDate(LocalDate.of(2021, 6, 26));
         campaignMetric.setClicks(10);
         campaignMetric.setImpressions(40);
         return campaignMetric;
