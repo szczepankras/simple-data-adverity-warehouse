@@ -1,6 +1,6 @@
 package com.adverity.warehouse.controllers;
 
-import com.adverity.warehouse.services.CampaignsMetricsDataFetchers;
+import com.adverity.warehouse.services.dispatcher.CampaignsMetricsDataFetcherService;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
@@ -9,6 +9,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 
@@ -18,13 +19,14 @@ import java.net.URL;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
+@Slf4j
 @Controller
 public class CampaignsMetricsController {
-    CampaignsMetricsDataFetchers campaignsMetricsDataFetchers;
+    CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService;
     private GraphQL graphQL;
 
-    public CampaignsMetricsController(CampaignsMetricsDataFetchers campaignsMetricsDataFetchers) {
-        this.campaignsMetricsDataFetchers = campaignsMetricsDataFetchers;
+    public CampaignsMetricsController(CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService) {
+        this.campaignsMetricsDataFetcherService = campaignsMetricsDataFetcherService;
     }
 
     @Bean
@@ -34,10 +36,12 @@ public class CampaignsMetricsController {
 
     @PostConstruct
     public void init() throws IOException {
+        log.info("Init Campaign Metrics Controller, status=started");
         URL url = Resources.getResource("graphql-schemas/schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
         GraphQLSchema graphQLSchema = buildSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+        log.info("Init Campaign Metrics Controller, status=finished");
     }
 
     private GraphQLSchema buildSchema(String sdl) {
@@ -51,9 +55,9 @@ public class CampaignsMetricsController {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetchers.getCampaignMetrics()))
+                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
                 .type(newTypeWiring("DataMetrics")
-                        .dataFetcher("data_source", campaignsMetricsDataFetchers.getDataSource()))
+                        .dataFetcher("data_source", campaignsMetricsDataFetcherService.getDataSource()))
                 .build();
     }
 }

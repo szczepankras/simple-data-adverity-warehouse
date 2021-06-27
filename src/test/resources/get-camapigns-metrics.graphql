@@ -1,0 +1,8 @@
+{
+    campaignMetrics {
+        daily
+        data_source {
+            name
+        }
+    }
+}

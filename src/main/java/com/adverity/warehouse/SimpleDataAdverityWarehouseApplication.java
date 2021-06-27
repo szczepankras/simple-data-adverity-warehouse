@@ -11,7 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class SimpleDataAdverityWarehouseApplication {
@@ -36,7 +36,7 @@ public class SimpleDataAdverityWarehouseApplication {
             campaignMetric.setClicks(1);
             campaignMetric.setCampaign(campaign);
             campaignMetric.setDataSource(dataSource);
-            campaignMetric.setDaily(new Date(System.currentTimeMillis()));
+            campaignMetric.setDaily(LocalDate.of(2021, 6, 26));
 
             dataSourceRepository.save(dataSource);
             campaignRepository.save(campaign);

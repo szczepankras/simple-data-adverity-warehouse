@@ -3,7 +3,7 @@ package com.adverity.warehouse.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity(name = "campaign_metrics")
 @Data
@@ -13,7 +13,7 @@ public class CampaignMetric {
     @Column(name = "campaign_metric_id")
     private Long id;
 
-    private Date daily;
+    private LocalDate daily;
     private Integer clicks;
     private Integer impressions;
 
