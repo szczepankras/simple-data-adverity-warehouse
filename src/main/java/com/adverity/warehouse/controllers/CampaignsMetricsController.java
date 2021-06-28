@@ -66,10 +66,16 @@ public class CampaignsMetricsController {
                         .dataFetcher("filterByCampaign", campaignsMetricsDataFilterDispatcher.filterByCampaign())
                         .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFilterDispatcher.filterByDatesAndCampaign())
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFilterDispatcher.getCampaignMetrics())
+                        .dataFetcher("totalClicksGroupByCampaign", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaign())
+                        .dataFetcher("totalClicksGroupByDataSource", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSource())
+                        .dataFetcher("totalImpressionsGroupByCampaign", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaign())
+                        .dataFetcher("totalImpressionsByDataSource", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByDataSource())
                         .dataFetcher("totalClicksGroupedByDataSourceAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSourceAndDates())
                         .dataFetcher("totalClicksGroupedByCampaignAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaignAndDates())
                         .dataFetcher("totalImpressionsGroupedByDataSourceAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByDataSourceAndDates())
-                        .dataFetcher("totalImpressionsGroupByCampaignAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaignAndDates()))
+                        .dataFetcher("totalImpressionsGroupByCampaignAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaignAndDates())
+                        .dataFetcher("ctrGroupByCampaign", campaignsMetricsDataAggregatorDispatcher.getCTRByCampaign())
+                        .dataFetcher("ctrGroupByDataSource", campaignsMetricsDataAggregatorDispatcher.getCTRByDataSource()))
                 .build();
     }
 }

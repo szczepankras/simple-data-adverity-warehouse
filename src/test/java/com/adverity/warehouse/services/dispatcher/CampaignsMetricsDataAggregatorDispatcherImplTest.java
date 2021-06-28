@@ -19,7 +19,7 @@ class CampaignsMetricsDataAggregatorDispatcherImplTest {
     }
 
     @Test
-    void shouldGetTotalClicksByDataSource() {
+    void shouldGetTotalClicksByDataSourceAndDate() {
         //when
         DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSourceAndDates();
 
@@ -28,7 +28,7 @@ class CampaignsMetricsDataAggregatorDispatcherImplTest {
     }
 
     @Test
-    void shouldGetTotalClicksByCampaign() {
+    void shouldGetTotalClicksByCampaignAndDate() {
         //when
         DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaignAndDates();
 
@@ -37,7 +37,7 @@ class CampaignsMetricsDataAggregatorDispatcherImplTest {
     }
 
     @Test
-    void shouldGetTotalImpressionsByDataSource() {
+    void shouldGetTotalImpressionsByDataSourceAndDate() {
         //when
         DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByDataSourceAndDates();
 
@@ -46,11 +46,66 @@ class CampaignsMetricsDataAggregatorDispatcherImplTest {
     }
 
     @Test
-    void shouldGetTotalImpressionsByCampaign() {
+    void shouldGetTotalImpressionsByCampaignAndDate() {
         //when
         DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaignAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);
     }
+
+    @Test
+    void shouldGetTotalClicksByDataSource() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSource();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetTotalClicksByCampaign() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaign();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetTotalImpressionsByDataSource() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByDataSource();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetTotalImpressionsByCampaign() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaign();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetCTRByDataSource() {
+        //when
+        DataFetcher<Double> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getCTRByDataSource();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetCTRByCampaign() {
+        //when
+        DataFetcher<Double> campaignMetricsDataFetcher = campaignsMetricsDataAggregatorDispatcher.getCTRByCampaign();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
 }

@@ -10,7 +10,7 @@ class Queries {
 
     static final String TOTAL_CLICKS_BY_CAMPAIGN_NAME =
             "select sum(campaign_metrics.clicks) from campaign_metrics inner join campaigns ds on " +
-                    "campaign_metrics.data_source = ds.campaign_id where ds.name like :campaign ";
+                    "campaign_metrics.campaign = ds.campaign_id where ds.name like :campaign ";
 
     static final String TOTAL_IMPRESSIONS_BY_DATA_SOURCE_NAME =
             "select sum(campaign_metrics.impressions) from campaign_metrics inner join data_sources ds on " +
@@ -18,7 +18,7 @@ class Queries {
 
     static final String TOTAL_IMPRESSIONS_BY_CAMPAIGN_NAME =
             "select sum(campaign_metrics.impressions) from campaign_metrics inner join campaigns ds on " +
-                    "campaign_metrics.data_source = ds.campaign_id where ds.name like :campaign ";
+                    "campaign_metrics.campaign = ds.campaign_id where ds.name like :campaign ";
 
     static final String TOTAL_CLICKS_BY_DATA_SOURCE_NAME_IN_GIVEN_DATE_RANGE =
             "select sum(campaign_metrics.clicks) from campaign_metrics inner join data_sources ds on " +

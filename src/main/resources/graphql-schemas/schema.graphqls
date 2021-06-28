@@ -4,6 +4,12 @@ type Query {
     filterByDatesAndDataSource(queryParams: [QueryParams]!): [DataMetrics]
     filterByCampaign(queryParams: [QueryParams]!): [DataMetrics]
     filterByDatesAndCampaign(queryParams: [QueryParams]!): [DataMetrics]
+    totalClicksGroupByCampaign(queryParams: [QueryParams]!): Float
+    totalClicksGroupByDataSource(queryParams: [QueryParams]!): Float
+    totalImpressionsGroupByCampaign(queryParams: [QueryParams]!): Float
+    totalImpressionsByDataSource(queryParams: [QueryParams]!): Float
+    ctrGroupByCampaign(queryParams: [QueryParams]!): Float
+    ctrGroupByDataSource(queryParams: [QueryParams]!): Float
     totalClicksGroupedByDataSourceAndDate(queryParams: [QueryParams]!): Float
     totalClicksGroupedByCampaignAndDate(queryParams: [QueryParams]!): Float
     totalImpressionsGroupedByDataSourceAndDate(queryParams: [QueryParams]!): Float
