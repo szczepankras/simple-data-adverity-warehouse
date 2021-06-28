@@ -1,13 +1,10 @@
 {
     campaignMetrics{
         date
-        dataSource {
-            name
-        }
-        campaign {
-            name
-        }
+        dataSource
+        campaign
         clicks
         impressions
+        CTR
     }
 }

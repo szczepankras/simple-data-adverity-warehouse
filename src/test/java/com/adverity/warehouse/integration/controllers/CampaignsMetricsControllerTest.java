@@ -67,10 +67,11 @@ public class CampaignsMetricsControllerTest {
         GraphQLResponse response = graphQLTestTemplate.postForResource("get-campaigns-metrics.graphql");
         assertThat(response.isOk()).isTrue();
         assertThat(response.get("$.data.campaignMetrics[0].date")).isEqualTo(campaignMetricGoogle.getDate().toString());
-        assertThat(response.get("$.data.campaignMetrics[0].dataSource.name")).isEqualTo(campaignMetricGoogle.getDataSource().getName());
-        assertThat(response.get("$.data.campaignMetrics[0].campaign.name")).isEqualTo(campaignMetricGoogle.getCampaign().getName());
+        assertThat(response.get("$.data.campaignMetrics[0].dataSource")).isEqualTo(campaignMetricGoogle.getDataSource().getName());
+        assertThat(response.get("$.data.campaignMetrics[0].campaign")).isEqualTo(campaignMetricGoogle.getCampaign().getName());
         assertThat(response.get("$.data.campaignMetrics[0].clicks", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
         assertThat(response.get("$.data.campaignMetrics[0].impressions", Integer.class)).isEqualTo(campaignMetricGoogle.getImpressions());
+        assertThat(response.get("$.data.campaignMetrics[0].CTR", Double.class)).isEqualTo((double) campaignMetricGoogle.getClicks() / campaignMetricGoogle.getImpressions());
     }
 
     private void initData() {

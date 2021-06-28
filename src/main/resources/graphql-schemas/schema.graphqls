@@ -4,19 +4,12 @@ type Query {
 }
 
 type DataMetrics {
-    dataSource: DataSource!
-    campaign: Campaign!
+    dataSource: String!
+    campaign: String!
     date: String
     clicks: Int
     impressions: Int
-}
-
-type DataSource {
-    name: String
-}
-
-type Campaign {
-    name: String
+    CTR: Float
 }
 
 input QueryParams  {

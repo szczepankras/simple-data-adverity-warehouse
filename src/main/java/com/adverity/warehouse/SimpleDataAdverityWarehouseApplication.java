@@ -21,7 +21,8 @@ public class SimpleDataAdverityWarehouseApplication {
                                   CampaignMetricsRepository campaignMetricsRepository) {
         return (args) -> {
 
- /*           DataSource dataSource = new DataSource();
+/*
+           DataSource dataSource = new DataSource();
             dataSource.setName("Google Ads");
 
             Campaign campaign = new Campaign();
@@ -36,7 +37,8 @@ public class SimpleDataAdverityWarehouseApplication {
 
             dataSourceRepository.save(dataSource);
             campaignRepository.save(campaign);
-            campaignMetricsRepository.save(campaignMetric);*/
+            campaignMetricsRepository.save(campaignMetric);
+*/
 
         };
     }

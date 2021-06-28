@@ -1,10 +1,10 @@
 package com.adverity.warehouse.services.core;
 
-import com.adverity.warehouse.models.CampaignMetric;
+import com.adverity.warehouse.models.dto.CampaignMetricDto;
 
 import java.util.List;
 
 public interface GetCampaignMetricsService {
 
-    List<CampaignMetric> getCampaignMetrics();
+    List<CampaignMetricDto> getCampaignMetrics();
 }

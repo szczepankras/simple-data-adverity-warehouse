@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class DataGeneratorHelper {
 
-    public static Iterable<CampaignMetric> createFakeCampaignMetrics() {
+    public static Iterable<CampaignMetric> createFakeCampaignMetricsList() {
         CampaignMetric campaignMetric1 = createFakeCampaignMetric(new DataSource(), new Campaign());
         CampaignMetric campaignMetric2 = createFakeCampaignMetric(new DataSource(), new Campaign());
         return Arrays.asList(campaignMetric1, campaignMetric2);

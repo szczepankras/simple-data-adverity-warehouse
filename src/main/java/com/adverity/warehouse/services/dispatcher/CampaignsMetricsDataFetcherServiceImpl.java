@@ -1,6 +1,6 @@
 package com.adverity.warehouse.services.dispatcher;
 
-import com.adverity.warehouse.models.CampaignMetric;
+import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import com.adverity.warehouse.services.core.GetCampaignMetricsService;
 import com.adverity.warehouse.services.core.GetTotalClicksService;
 import com.adverity.warehouse.services.query.Query;
@@ -27,7 +27,7 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     }
 
     @Override
-    public DataFetcher<List<CampaignMetric>> getCampaignMetrics() {
+    public DataFetcher<List<CampaignMetricDto>> getCampaignMetrics() {
         return dataFetchingEnvironment -> getCampaignMetricsService.getCampaignMetrics();
     }
 

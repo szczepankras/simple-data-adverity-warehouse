@@ -1,13 +1,13 @@
 package com.adverity.warehouse.services.dispatcher;
 
-import com.adverity.warehouse.models.CampaignMetric;
+import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import graphql.schema.DataFetcher;
 
 import java.util.List;
 
 public interface CampaignsMetricsDataFetcherService {
 
-    DataFetcher<List<CampaignMetric>> getCampaignMetrics();
+    DataFetcher<List<CampaignMetricDto>> getCampaignMetrics();
 
     DataFetcher<Long> getTotalClicks();
 }
