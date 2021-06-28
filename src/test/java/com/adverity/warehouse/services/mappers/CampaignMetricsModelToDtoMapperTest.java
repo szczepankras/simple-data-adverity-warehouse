@@ -12,8 +12,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.adverity.warehouse.common.DataGeneratorHelper.createFakeCampaignMetric;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.adverity.warehouse.common.DataGeneratorHelper.*;
 
 class CampaignMetricsModelToDtoMapperTest {
 
@@ -61,20 +60,5 @@ class CampaignMetricsModelToDtoMapperTest {
 
         //then
         assertList(campaignMetricList, campaignMetricDtoList);
-    }
-
-    private void assertModels(CampaignMetric campaignMetric, CampaignMetricDto campaignMetricDto) {
-        assertEquals(campaignMetric.getCampaign().getName(), campaignMetricDto.getCampaign());
-        assertEquals(campaignMetric.getDataSource().getName(), campaignMetricDto.getDataSource());
-        assertEquals(campaignMetric.getClicks(), campaignMetricDto.getClicks());
-        assertEquals(campaignMetric.getImpressions(), campaignMetricDto.getImpressions());
-        assertEquals(campaignMetric.getDate(), campaignMetricDto.getDate());
-    }
-
-    private void assertList(List<CampaignMetric> campaignMetricList, List<CampaignMetricDto> campaignMetricDtoList) {
-        int index = 0;
-        for (CampaignMetric campaignMetric : campaignMetricList) {
-            assertModels(campaignMetric, campaignMetricDtoList.get(index++));
-        }
     }
 }

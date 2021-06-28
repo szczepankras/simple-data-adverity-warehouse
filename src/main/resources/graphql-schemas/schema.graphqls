@@ -1,4 +1,5 @@
 type Query {
+    filterByDates(queryParams: [QueryParams]!): [DataMetrics]
     totalClicks(queryParams: [QueryParams]!): Float
     campaignMetrics: [DataMetrics]
 }

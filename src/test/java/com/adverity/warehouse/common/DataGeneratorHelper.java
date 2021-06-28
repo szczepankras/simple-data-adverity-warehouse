@@ -3,15 +3,21 @@ package com.adverity.warehouse.common;
 import com.adverity.warehouse.models.Campaign;
 import com.adverity.warehouse.models.CampaignMetric;
 import com.adverity.warehouse.models.DataSource;
+import com.adverity.warehouse.models.dto.CampaignMetricDto;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataGeneratorHelper {
 
-    public static Iterable<CampaignMetric> createFakeCampaignMetricsList() {
-        CampaignMetric campaignMetric1 = createFakeCampaignMetric(new DataSource(), new Campaign());
-        CampaignMetric campaignMetric2 = createFakeCampaignMetric(new DataSource(), new Campaign());
+    public static List<CampaignMetric> createFakeCampaignMetricsList() {
+        CampaignMetric campaignMetric1 = createFakeCampaignMetric(createFakeDataSource("Fake 1"),
+                createFakeCampaign("Fake 2"));
+        CampaignMetric campaignMetric2 = createFakeCampaignMetric(createFakeDataSource("Fake 3"),
+                createFakeCampaign("Fake 4"));
         return Arrays.asList(campaignMetric1, campaignMetric2);
     }
 
@@ -35,5 +41,20 @@ public class DataGeneratorHelper {
         Campaign campaign = new Campaign();
         campaign.setName(name);
         return campaign;
+    }
+
+    public static void assertList(List<CampaignMetric> campaignMetricList, List<CampaignMetricDto> campaignMetricDtoList) {
+        int index = 0;
+        for (CampaignMetric campaignMetric : campaignMetricList) {
+            assertModels(campaignMetric, campaignMetricDtoList.get(index++));
+        }
+    }
+
+    public static void assertModels(CampaignMetric campaignMetric, CampaignMetricDto campaignMetricDto) {
+        assertEquals(campaignMetric.getCampaign().getName(), campaignMetricDto.getCampaign());
+        assertEquals(campaignMetric.getDataSource().getName(), campaignMetricDto.getDataSource());
+        assertEquals(campaignMetric.getClicks(), campaignMetricDto.getClicks());
+        assertEquals(campaignMetric.getImpressions(), campaignMetricDto.getImpressions());
+        assertEquals(campaignMetric.getDate(), campaignMetricDto.getDate());
     }
 }

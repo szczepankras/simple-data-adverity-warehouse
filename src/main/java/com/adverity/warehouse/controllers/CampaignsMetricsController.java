@@ -22,7 +22,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Controller
 public class CampaignsMetricsController {
-    CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService;
+    private CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService;
     private GraphQL graphQL;
 
     public CampaignsMetricsController(CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService) {
@@ -56,7 +56,8 @@ public class CampaignsMetricsController {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
-                        .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks()))
+                        .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks())
+                        .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates()))
                 .build();
     }
 }

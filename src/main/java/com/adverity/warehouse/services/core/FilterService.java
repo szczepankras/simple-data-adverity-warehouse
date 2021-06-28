@@ -1,0 +1,11 @@
+package com.adverity.warehouse.services.core;
+
+import com.adverity.warehouse.models.dto.CampaignMetricDto;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public interface FilterService {
+
+    List<CampaignMetricDto> filterByDates(LocalDate from, LocalDate to);
+}
