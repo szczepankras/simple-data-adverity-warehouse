@@ -1,4 +1,4 @@
-package com.adverity.warehouse.services.query.validation;
+package com.adverity.warehouse.services.query.validation.predicates;
 
 import java.util.Map;
 import java.util.function.Predicate;

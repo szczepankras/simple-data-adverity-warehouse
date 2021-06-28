@@ -4,22 +4,19 @@ import com.adverity.warehouse.services.errors.exception.WronglySpecifiedQueryPar
 import com.adverity.warehouse.services.query.Query;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
 import java.util.Map;
 
-import static com.adverity.warehouse.services.query.validation.QueryParams.*;
+import static com.adverity.warehouse.services.query.validation.QueryParams.NAME;
 
 @Slf4j
-public class StandardInputParser implements Parser {
+public class NameInputParser implements Parser {
     @Override
     public void parseParams(Map<String, String> params, Query query) {
-        query.setName(params.get(NAME));
-        try {
-            query.setDateFrom(LocalDate.parse(params.get(DATE_FROM)));
-            query.setDateTo(LocalDate.parse(params.get(DATE_TO)));
-        } catch (Exception exception) {
+        String name = params.get(NAME);
+        if (name == null || name.isEmpty()) {
             log.error("Incorrect date provided as the input");
             throw new WronglySpecifiedQueryParams();
         }
+        query.setName(name);
     }
 }

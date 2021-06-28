@@ -31,4 +31,13 @@ public class FilterServiceImpl implements FilterService {
         log.info("Fetch campaign metrics from data repository by date from={}, to={}, status=finished", from, to);
         return campaignMetricDtoList;
     }
+
+    @Override
+    public List<CampaignMetricDto> filterByDateSource(String dataSource) {
+        log.info("Fetch campaign metrics from data repository by data source={} status=started", dataSource);
+        List<CampaignMetric> campaignMetricList = campaignMetricsRepository.findByDataSourceName(dataSource);
+        List<CampaignMetricDto> campaignMetricDtoList = campaignMetricsModelToDtoMapper.map(campaignMetricList);
+        log.info("Fetch campaign metrics from data repository by data source={} status=finished", dataSource);
+        return campaignMetricDtoList;
+    }
 }

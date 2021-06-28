@@ -57,6 +57,7 @@ public class CampaignsMetricsController {
                 .type(newTypeWiring("Query")
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
                         .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks())
+                        .dataFetcher("filterByDateSource", campaignsMetricsDataFetcherService.filterByDataSource())
                         .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates()))
                 .build();
     }

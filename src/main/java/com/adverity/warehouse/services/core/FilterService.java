@@ -8,4 +8,7 @@ import java.util.List;
 public interface FilterService {
 
     List<CampaignMetricDto> filterByDates(LocalDate from, LocalDate to);
+
+    List<CampaignMetricDto> filterByDateSource(String dataSource);
+
 }

@@ -1,8 +1,8 @@
 package com.adverity.warehouse.services.query;
 
 import com.adverity.warehouse.services.errors.exception.WronglySpecifiedQueryParams;
-import com.adverity.warehouse.services.query.validation.StandardInputPredicate;
 import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;
+import com.adverity.warehouse.services.query.validation.predicates.StandardInputPredicate;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;

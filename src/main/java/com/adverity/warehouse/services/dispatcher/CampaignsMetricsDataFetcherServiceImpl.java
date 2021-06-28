@@ -5,14 +5,19 @@ import com.adverity.warehouse.services.core.FilterService;
 import com.adverity.warehouse.services.core.GetCampaignMetricsService;
 import com.adverity.warehouse.services.core.MetricsAggregationService;
 import com.adverity.warehouse.services.query.Query;
-import com.adverity.warehouse.services.query.validation.DateInputPredicate;
-import com.adverity.warehouse.services.query.validation.StandardInputPredicate;
+import com.adverity.warehouse.services.query.validation.parsers.NameInputParser;
+import com.adverity.warehouse.services.query.validation.parsers.Parser;
 import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;
+import com.adverity.warehouse.services.query.validation.predicates.DateInputPredicate;
+import com.adverity.warehouse.services.query.validation.predicates.NameInputPredicate;
+import com.adverity.warehouse.services.query.validation.predicates.StandardInputPredicate;
 import graphql.schema.DataFetcher;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.adverity.warehouse.services.query.validation.QueryParams.QUERY_PARAMS;
 
@@ -40,8 +45,7 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     @Override
     public DataFetcher<Long> getTotalClicks() {
         return dataFetchingEnvironment -> {
-            Query query = new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS),
-                    new StandardInputPredicate(), new StandardInputParser());
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("total clicks requested with query={}", query);
             return metricsAggregationService.getTotalClicksForDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
         };
@@ -50,10 +54,23 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     @Override
     public DataFetcher<List<CampaignMetricDto>> filterByDates() {
         return dataFetchingEnvironment -> {
-            Query query = new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS),
-                    new DateInputPredicate(), new StandardInputParser());
+            Query query = getQuery(dataFetchingEnvironment, new DateInputPredicate(), new StandardInputParser());
             log.info("filter by dates requested with query={}", query);
             return filterService.filterByDates(query.getDateFrom(), query.getDateTo());
         };
     }
+
+    @Override
+    public DataFetcher<List<CampaignMetricDto>> filterByDataSource() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new NameInputPredicate(), new NameInputParser());
+            log.info("filter by data source name requested with query={}", query);
+            return filterService.filterByDateSource(query.getName());
+        };
+    }
+
+    private Query getQuery(DataFetchingEnvironment dataFetchingEnvironment, Predicate<?> predicate, Parser parser) {
+        return new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS), predicate, parser);
+    }
+
 }
