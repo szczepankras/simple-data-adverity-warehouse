@@ -12,11 +12,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static com.adverity.warehouse.common.DataGeneratorHelper.assertList;
 import static com.adverity.warehouse.common.DataGeneratorHelper.createFakeCampaignMetricsList;
+import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
@@ -40,7 +40,7 @@ class FilterServiceImplTest {
     }
 
     @Test
-    void shouldGetCampaignMetrics() {
+    void shouldGetCampaignMetricsBaseOnDates() {
         //given
         List<CampaignMetric> campaignMetrics = createFakeCampaignMetricsList();
         LocalDate from = LocalDate.of(2021, 6, 15);
@@ -58,9 +58,9 @@ class FilterServiceImplTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenThereAreNotDataInRepository() {
+    void shouldReturnEmptyListBaseOnDatesWhenThereAreNotDataInRepository() {
         //given
-        Iterable<CampaignMetric> campaignMetrics = Collections.emptyList();
+        Iterable<CampaignMetric> campaignMetrics = emptyList();
         LocalDate from = LocalDate.of(2021, 6, 15);
         LocalDate to = LocalDate.of(2021, 6, 18);
 
@@ -74,5 +74,76 @@ class FilterServiceImplTest {
         verify(campaignMetricsRepository, times(1)).findByDateBetween(from, to);
     }
 
+    @Test
+    void shouldGetCampaignMetricsBaseOnDataSourceName() {
+        //given
+        List<CampaignMetric> campaignMetrics = createFakeCampaignMetricsList();
+        String name = "dataSourceName";
+
+        //when
+        when(campaignMetricsRepository.findByDataSourceName(name)).thenReturn(campaignMetrics);
+        List<CampaignMetricDto> campaignMetricList = filterService.filterByDateSource(name);
+
+        //then
+        assertNotNull(campaignMetricList);
+        assertEquals(campaignMetricList.size(), ((Collection<?>) campaignMetrics).size());
+        assertList(campaignMetrics, campaignMetricList);
+        verify(campaignMetricsRepository, times(1)).findByDataSourceName(name);
+    }
+
+    @Test
+    void shouldReturnEmptyListBaseOnDataSourceName() {
+        //given
+        List<CampaignMetric> campaignMetrics = emptyList();
+        String name = "dataSourceName";
+
+        //when
+        when(campaignMetricsRepository.findByDataSourceName(name)).thenReturn(campaignMetrics);
+        List<CampaignMetricDto> campaignMetricList = filterService.filterByDateSource(name);
+
+        //then
+        //then
+        assertNotNull(campaignMetricList);
+        assertTrue(campaignMetricList.isEmpty());
+        verify(campaignMetricsRepository, times(1)).findByDataSourceName(name);
+    }
+
+    @Test
+    void shouldGetCampaignMetricsBaseOnDatesAndDataSourceName() {
+        //given
+        List<CampaignMetric> campaignMetrics = createFakeCampaignMetricsList();
+        String name = "dataSourceName";
+        LocalDate from = LocalDate.of(2021, 6, 15);
+        LocalDate to = LocalDate.of(2021, 6, 18);
+
+        //when
+        when(campaignMetricsRepository.findByDateBetweenAndDataSourceName(from, to, name)).thenReturn(campaignMetrics);
+        List<CampaignMetricDto> campaignMetricList = filterService.filterByDatesAndDateSource(from, to, name);
+
+        //then
+        assertNotNull(campaignMetricList);
+        assertEquals(campaignMetricList.size(), ((Collection<?>) campaignMetrics).size());
+        assertList(campaignMetrics, campaignMetricList);
+        verify(campaignMetricsRepository, times(1)).findByDateBetweenAndDataSourceName(from, to, name);
+    }
+
+    @Test
+    void shouldReturnEmptyListBaseOnDatesAndDataSourceName() {
+        //given
+        List<CampaignMetric> campaignMetrics = emptyList();
+        String name = "dataSourceName";
+        LocalDate from = LocalDate.of(2021, 6, 15);
+        LocalDate to = LocalDate.of(2021, 6, 18);
+
+        //when
+        when(campaignMetricsRepository.findByDateBetweenAndDataSourceName(from, to, name)).thenReturn(campaignMetrics);
+        List<CampaignMetricDto> campaignMetricList = filterService.filterByDatesAndDateSource(from, to, name);
+
+        //then
+        //then
+        assertNotNull(campaignMetricList);
+        assertTrue(campaignMetricList.isEmpty());
+        verify(campaignMetricsRepository, times(1)).findByDateBetweenAndDataSourceName(from, to, name);
+    }
 
 }

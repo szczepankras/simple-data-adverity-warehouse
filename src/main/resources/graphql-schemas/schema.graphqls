@@ -3,6 +3,7 @@ type Query {
     totalClicks(queryParams: [QueryParams]!): Float
     campaignMetrics: [DataMetrics]
     filterByDateSource(queryParams: [QueryParams]!): [DataMetrics]
+    filterByDatesAndDataSource(queryParams: [QueryParams]!): [DataMetrics]
 }
 
 type DataMetrics {

@@ -58,7 +58,8 @@ public class CampaignsMetricsController {
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
                         .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks())
                         .dataFetcher("filterByDateSource", campaignsMetricsDataFetcherService.filterByDataSource())
-                        .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates()))
+                        .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates())
+                        .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFetcherService.filterByDatesAndDataSource()))
                 .build();
     }
 }
