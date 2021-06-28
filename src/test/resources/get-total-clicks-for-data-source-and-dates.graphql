@@ -1,0 +1,8 @@
+{
+    totalClicksGroupedByDataSourceAndDate(queryParams:
+    {
+        name: "Google Ads",
+        dateFrom: "2021-06-26",
+        dateTo: "2021-06-27"
+    })
+}

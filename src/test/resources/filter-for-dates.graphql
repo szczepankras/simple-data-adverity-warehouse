@@ -1,0 +1,5 @@
+{
+    filterByDates(queryParams:{dateFrom: "2021-01-05", dateTo:"2021-12-30"}) {
+        dataSource
+    }
+}

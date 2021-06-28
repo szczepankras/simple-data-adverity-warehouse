@@ -1,0 +1,5 @@
+{
+    filterByDateSource(queryParams:{name: "Google Ads"}){
+        CTR
+    }
+}

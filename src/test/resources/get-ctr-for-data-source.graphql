@@ -1,0 +1,6 @@
+{
+    ctrGroupByDataSource(queryParams:
+    {
+        name: "Twitter Ads",
+    })
+}

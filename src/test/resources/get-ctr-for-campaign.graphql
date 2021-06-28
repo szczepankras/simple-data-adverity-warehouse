@@ -1,0 +1,6 @@
+{
+    ctrGroupByCampaign(queryParams:
+    {
+        name: "Adverity Google campaign"
+    })
+}

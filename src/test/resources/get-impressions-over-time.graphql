@@ -1,0 +1,5 @@
+{
+    filterByDates(queryParams:{dateFrom: "2021-05-05", dateTo:"2021-06-30"}) {
+        impressions
+    }
+}

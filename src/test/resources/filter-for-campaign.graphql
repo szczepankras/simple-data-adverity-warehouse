@@ -1,0 +1,5 @@
+{
+    filterByCampaign(queryParams:{name: "Adverity Google campaign"}){
+        CTR
+    }
+}

@@ -1,0 +1,6 @@
+{
+    totalClicksGroupByCampaign(queryParams:
+    {
+        name: "Adverity Twitter campaign",
+    })
+}

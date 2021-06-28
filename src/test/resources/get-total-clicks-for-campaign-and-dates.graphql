@@ -1,0 +1,8 @@
+{
+    totalClicksGroupedByCampaignAndDate(queryParams:
+    {
+        name: "Adverity Google campaign",
+        dateFrom: "2021-06-26",
+        dateTo: "2021-06-27"
+    })
+}

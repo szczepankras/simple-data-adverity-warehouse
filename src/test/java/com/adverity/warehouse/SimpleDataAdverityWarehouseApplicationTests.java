@@ -36,9 +36,9 @@ class SimpleDataAdverityWarehouseApplicationTests {
 
     private DataSource dataSourceTwitter, dataSourceGoogle;
 
-    private Campaign googleCampaign, twitterCampaign;
+    private Campaign googleCampaign, googleCampaign2, twitterCampaign;
 
-    private CampaignMetric campaignMetricGoogle, campaignMetricTwitter;
+    private CampaignMetric campaignMetricGoogle, campaignMetricGoogle2, campaignMetricTwitter;
 
     @BeforeEach
     public void init() {
@@ -51,15 +51,110 @@ class SimpleDataAdverityWarehouseApplicationTests {
     }
 
     @Test
-    void contextLoads() {
+    void getTotalClicksForGivenDataSourceAndDateRange() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-data-source-and-dates.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalClicksGroupedByDataSourceAndDate", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks() +
+                campaignMetricGoogle2.getClicks());
     }
 
     @Test
-    void getTotalClicksForGivenDataSourceAndDate() throws Exception {
+    void getCTRPerDataSource() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-ctr-for-data-source.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.ctrGroupByDataSource", Double.class)).isEqualTo(
+                (double) (campaignMetricGoogle.getClicks() + campaignMetricGoogle2.getClicks()) /
+                        (campaignMetricGoogle.getImpressions() + campaignMetricGoogle2.getImpressions()));
+    }
+
+    @Test
+    void getCTRPerCampaign() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-ctr-for-campaign.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.ctrGroupByCampaign", Double.class)).isEqualTo(
+                (double) campaignMetricGoogle.getClicks() / campaignMetricGoogle.getImpressions());
+    }
+
+    @Test
+    void getImpressionsOverTime() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-impressions-over-time.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.filterByDates[0].impressions", Integer.class)).isEqualTo(campaignMetricGoogle.getImpressions());
+        assertThat(response.get("$.data.filterByDates[1].impressions", Integer.class)).isEqualTo(campaignMetricGoogle2.getImpressions());
+        assertThat(response.get("$.data.filterByDates[2].impressions", Integer.class)).isEqualTo(campaignMetricTwitter.getImpressions());
+    }
+
+    @Test
+    void getTotalClicksForGivenCampaignAndDate() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-campaign-and-dates.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalClicksGroupedByCampaignAndDate", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
+    }
+
+    @Test
+    void getTotalClicksForGivenCampaign() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-campaign.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalClicksGroupByCampaign", Integer.class)).isEqualTo(campaignMetricTwitter.getClicks());
+    }
+
+    @Test
+    void getTotalClicksForGivenDataSource() throws Exception {
 
         GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-data-source.graphql");
         assertThat(response.isOk()).isTrue();
-        assertThat(response.get("$.data.totalClicksGroupedByDataSourceAndDate", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
+        assertThat(response.get("$.data.totalClicksGroupByDataSource", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks() +
+                campaignMetricGoogle2.getClicks());
+    }
+
+    @Test
+    void getTotalImpressionsForGivenDataSource() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-impressions-for-data-source.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalImpressionsByDataSource", Integer.class)).isEqualTo(campaignMetricGoogle.getImpressions() +
+                campaignMetricGoogle2.getImpressions());
+    }
+
+    @Test
+    void getTotalImpressionsForGivenCampaign() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-impressions-for-campaign.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.totalImpressionsGroupByCampaign", Integer.class)).isEqualTo(campaignMetricTwitter.getImpressions());
+    }
+
+    @Test
+    void filterForGivenCampaign() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("filter-for-campaign.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.filterByCampaign[0].CTR", Double.class)).isEqualTo(
+                (double) campaignMetricGoogle.getClicks() / campaignMetricGoogle.getImpressions());
+    }
+
+    @Test
+    void filterForGivenDataSource() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("filter-for-data-source.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.filterByDateSource[0].CTR", Double.class)).isEqualTo(
+                (double) (campaignMetricGoogle.getClicks() + campaignMetricGoogle2.getClicks()) /
+                        (campaignMetricGoogle.getImpressions() + campaignMetricGoogle2.getImpressions()));
+    }
+
+    @Test
+    void filterForGivenDates() throws Exception {
+
+        GraphQLResponse response = graphQLTestTemplate.postForResource("filter-for-dates.graphql");
+        assertThat(response.isOk()).isTrue();
+        assertThat(response.get("$.data.filterByDates[0].dataSource")).isEqualTo(dataSourceGoogle.getName());
     }
 
     @Test
@@ -81,14 +176,18 @@ class SimpleDataAdverityWarehouseApplicationTests {
         dataSourceTwitter = createFakeDataSource("Twitter Ads");
 
         googleCampaign = createFakeCampaign("Adverity Google campaign");
+        googleCampaign2 = createFakeCampaign("Adverity Google campaign 2");
         twitterCampaign = createFakeCampaign("Adverity Twitter campaign");
 
         campaignMetricGoogle = createFakeCampaignMetric(dataSourceGoogle, googleCampaign);
+        campaignMetricGoogle2 = createFakeCampaignMetric(dataSourceGoogle, googleCampaign2);
         campaignMetricTwitter = createFakeCampaignMetric(dataSourceTwitter, twitterCampaign);
 
         dataSourceRepository.save(dataSourceGoogle);
         campaignRepository.save(googleCampaign);
+        campaignRepository.save(googleCampaign2);
         campaignMetricsRepository.save(campaignMetricGoogle);
+        campaignMetricsRepository.save(campaignMetricGoogle2);
 
         dataSourceRepository.save(dataSourceTwitter);
         campaignRepository.save(twitterCampaign);
@@ -97,8 +196,10 @@ class SimpleDataAdverityWarehouseApplicationTests {
 
     private void cleanUpData() {
         campaignMetricsRepository.delete(campaignMetricGoogle);
+        campaignMetricsRepository.delete(campaignMetricGoogle2);
         dataSourceRepository.delete(dataSourceGoogle);
         campaignRepository.delete(googleCampaign);
+        campaignRepository.delete(googleCampaign2);
 
         campaignMetricsRepository.delete(campaignMetricTwitter);
         dataSourceRepository.delete(dataSourceTwitter);

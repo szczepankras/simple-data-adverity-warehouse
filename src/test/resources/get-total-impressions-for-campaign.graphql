@@ -1,0 +1,6 @@
+{
+    totalImpressionsGroupByCampaign(queryParams:
+    {
+        name: "Adverity Twitter campaign",
+    })
+}

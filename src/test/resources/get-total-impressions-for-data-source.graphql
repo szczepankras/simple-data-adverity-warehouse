@@ -1,0 +1,5 @@
+{
+    totalImpressionsByDataSource(queryParams:{
+        name:"Google Ads"
+    })
+}
