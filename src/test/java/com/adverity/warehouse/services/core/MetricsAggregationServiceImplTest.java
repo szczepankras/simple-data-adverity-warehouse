@@ -26,7 +26,7 @@ class MetricsAggregationServiceImplTest {
     }
 
     @Test
-    void shouldGetTotalClicks() {
+    void shouldGetTotalClicksByDataSource() {
         //given
         String dataSource = "Google Ads";
         LocalDate from = LocalDate.of(2021, 5, 27);
@@ -34,22 +34,50 @@ class MetricsAggregationServiceImplTest {
 
         //when
         when(campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange(dataSource, from, to)).thenReturn(100L);
-        Long result = getTotalClicksService.getTotalClicksForDataSource(dataSource, from, to);
+        Long result = getTotalClicksService.totalClicksGroupByDataSource(dataSource, from, to);
 
         //then
         assertEquals(100L, result);
     }
 
     @Test
-    void shouldNotGetTotalClicksWhenUnknownAttribute() {
+    void shouldNotGetTotalClicksByDataSourceWhenNoDataFromRepository() {
         //given
-        String dataSource = "Unknown";
+        String dataSource = "dataSource";
         LocalDate from = LocalDate.of(2021, 5, 27);
         LocalDate to = LocalDate.of(2021, 6, 27);
 
         //when
-        when(campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange("Known", from, to)).thenReturn(100L);
-        Long result = getTotalClicksService.getTotalClicksForDataSource(dataSource, from, to);
+        Long result = getTotalClicksService.totalClicksGroupByDataSource(dataSource, from, to);
+
+        //then
+        assertEquals(0L, result);
+    }
+
+    @Test
+    void shouldGetTotalClicksByCampaign() {
+        //given
+        String campaign = "Google Campaign";
+        LocalDate from = LocalDate.of(2021, 5, 27);
+        LocalDate to = LocalDate.of(2021, 6, 27);
+
+        //when
+        when(campaignMetricsRepository.getTotalClicksByCampaignAndDateRange(campaign, from, to)).thenReturn(100L);
+        Long result = getTotalClicksService.totalClicksGroupByCampaign(campaign, from, to);
+
+        //then
+        assertEquals(100L, result);
+    }
+
+    @Test
+    void shouldNotGetTotalClicksByCampaignWhenNoDataFromRepository() {
+        //given
+        String campaign = "campaign";
+        LocalDate from = LocalDate.of(2021, 5, 27);
+        LocalDate to = LocalDate.of(2021, 6, 27);
+
+        //when
+        Long result = getTotalClicksService.totalClicksGroupByCampaign(campaign, from, to);
 
         //then
         assertEquals(0L, result);

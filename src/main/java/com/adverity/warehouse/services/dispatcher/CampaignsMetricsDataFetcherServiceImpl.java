@@ -43,15 +43,6 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     }
 
     @Override
-    public DataFetcher<Long> getTotalClicks() {
-        return dataFetchingEnvironment -> {
-            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
-            log.info("total clicks requested with query={}", query);
-            return metricsAggregationService.getTotalClicksForDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
-        };
-    }
-
-    @Override
     public DataFetcher<List<CampaignMetricDto>> filterByDates() {
         return dataFetchingEnvironment -> {
             Query query = getQuery(dataFetchingEnvironment, new DateInputPredicate(), new StandardInputParser());
@@ -93,6 +84,24 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("filter by dates and campaign name requested with query={}", query);
             return filterService.filterByDatesAndCampaign(query.getDateFrom(), query.getDateTo(), query.getName());
+        };
+    }
+
+    @Override
+    public DataFetcher<Long> getTotalClicksByDataSource() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
+            log.info("total clicks requested with query={}", query);
+            return metricsAggregationService.totalClicksGroupByDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
+        };
+    }
+
+    @Override
+    public DataFetcher<Long> getTotalClicksByCampaign() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
+            log.info("total clicks requested with query={}", query);
+            return metricsAggregationService.totalClicksGroupByCampaign(query.getName(), query.getDateFrom(), query.getDateTo());
         };
     }
 

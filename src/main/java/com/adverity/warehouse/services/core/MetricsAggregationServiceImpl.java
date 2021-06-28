@@ -17,10 +17,18 @@ public class MetricsAggregationServiceImpl implements MetricsAggregationService 
     }
 
     @Override
-    public Long getTotalClicksForDataSource(String dataSource, LocalDate from, LocalDate to) {
-        log.info("Fetch total clicks for {} from data repository, status=started", dataSource);
+    public Long totalClicksGroupByDataSource(String dataSource, LocalDate from, LocalDate to) {
+        log.info("Fetch total clicks for data source= {} from data repository, status=started", dataSource);
         Long result = campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange(dataSource, from, to);
-        log.info("Fetch total clicks for {} from data repository, status=finished", dataSource);
+        log.info("Fetch total clicks for data source={} from data repository, status=finished", dataSource);
+        return result;
+    }
+
+    @Override
+    public Long totalClicksGroupByCampaign(String campaign, LocalDate from, LocalDate to) {
+        log.info("Fetch total clicks for campaign={} from data repository, status=started", campaign);
+        Long result = campaignMetricsRepository.getTotalClicksByCampaignAndDateRange(campaign, from, to);
+        log.info("Fetch total clicks for campaign={} from data repository, status=finished", campaign);
         return result;
     }
 }

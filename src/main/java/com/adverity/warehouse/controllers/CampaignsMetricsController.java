@@ -56,12 +56,14 @@ public class CampaignsMetricsController {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
-                        .dataFetcher("totalClicks", campaignsMetricsDataFetcherService.getTotalClicks())
                         .dataFetcher("filterByDateSource", campaignsMetricsDataFetcherService.filterByDataSource())
                         .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates())
                         .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFetcherService.filterByDatesAndDataSource())
                         .dataFetcher("filterByCampaign", campaignsMetricsDataFetcherService.filterByCampaign())
-                        .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFetcherService.filterByDatesAndCampaign()))
+                        .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFetcherService.filterByDatesAndCampaign())
+                        .dataFetcher("totalClicksGroupedByDataSource", campaignsMetricsDataFetcherService.getTotalClicksByDataSource())
+                        .dataFetcher("totalClicksGroupedByCampaign", campaignsMetricsDataFetcherService.getTotalClicksByCampaign())
+                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
                 .build();
     }
 }

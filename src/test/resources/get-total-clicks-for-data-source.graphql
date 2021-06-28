@@ -1,5 +1,5 @@
 {
-    totalClicks(queryParams:
+    totalClicksGroupedByDataSource(queryParams:
     {
         name: "Google Ads",
         dateFrom: "2021-06-26",

@@ -76,9 +76,18 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     }
 
     @Test
-    void shouldGetTotalClicks() {
+    void shouldGetTotalClicksByDataSource() {
         //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicks();
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByDataSource();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetTotalClicksByCampaign() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByCampaign();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);

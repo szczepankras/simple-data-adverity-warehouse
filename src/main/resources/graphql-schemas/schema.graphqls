@@ -1,11 +1,12 @@
 type Query {
     filterByDates(queryParams: [QueryParams]!): [DataMetrics]
-    totalClicks(queryParams: [QueryParams]!): Float
-    campaignMetrics: [DataMetrics]
     filterByDateSource(queryParams: [QueryParams]!): [DataMetrics]
     filterByDatesAndDataSource(queryParams: [QueryParams]!): [DataMetrics]
     filterByCampaign(queryParams: [QueryParams]!): [DataMetrics]
     filterByDatesAndCampaign(queryParams: [QueryParams]!): [DataMetrics]
+    campaignMetrics: [DataMetrics]
+    totalClicksGroupedByDataSource(queryParams: [QueryParams]!): Float
+    totalClicksGroupedByCampaign(queryParams: [QueryParams]!): Float
 }
 
 type DataMetrics {

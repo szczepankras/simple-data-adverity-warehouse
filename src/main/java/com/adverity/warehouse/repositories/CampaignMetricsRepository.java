@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.adverity.warehouse.repositories.Queries.TOTAL_CLICKS_BY_CAMPAIGN_NAME_IN_GIVEN_DATE_RANGE;
 import static com.adverity.warehouse.repositories.Queries.TOTAL_CLICKS_BY_DATA_SOURCE_NAME_IN_GIVEN_DATE_RANGE;
 
 public interface CampaignMetricsRepository extends CrudRepository<CampaignMetric, Long> {
@@ -24,4 +25,7 @@ public interface CampaignMetricsRepository extends CrudRepository<CampaignMetric
 
     @Query(value = TOTAL_CLICKS_BY_DATA_SOURCE_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
     Long getTotalClicksByDataSourceAndDateRange(@Param("dataSource") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
+
+    @Query(value = TOTAL_CLICKS_BY_CAMPAIGN_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
+    Long getTotalClicksByCampaignAndDateRange(@Param("campaign") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
 }
