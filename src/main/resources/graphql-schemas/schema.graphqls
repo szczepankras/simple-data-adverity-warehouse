@@ -4,6 +4,8 @@ type Query {
     campaignMetrics: [DataMetrics]
     filterByDateSource(queryParams: [QueryParams]!): [DataMetrics]
     filterByDatesAndDataSource(queryParams: [QueryParams]!): [DataMetrics]
+    filterByCampaign(queryParams: [QueryParams]!): [DataMetrics]
+    filterByDatesAndCampaign(queryParams: [QueryParams]!): [DataMetrics]
 }
 
 type DataMetrics {

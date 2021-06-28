@@ -78,6 +78,24 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
         };
     }
 
+    @Override
+    public DataFetcher<List<CampaignMetricDto>> filterByCampaign() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new NameInputPredicate(), new NameInputParser());
+            log.info("filter by campaign name requested with query={}", query);
+            return filterService.filterByCampaign(query.getName());
+        };
+    }
+
+    @Override
+    public DataFetcher<List<CampaignMetricDto>> filterByDatesAndCampaign() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
+            log.info("filter by dates and campaign name requested with query={}", query);
+            return filterService.filterByDatesAndCampaign(query.getDateFrom(), query.getDateTo(), query.getName());
+        };
+    }
+
     private Query getQuery(DataFetchingEnvironment dataFetchingEnvironment, Predicate<?> predicate, Parser parser) {
         return new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS), predicate, parser);
     }

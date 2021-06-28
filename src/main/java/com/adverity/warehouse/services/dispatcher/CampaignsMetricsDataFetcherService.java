@@ -15,5 +15,9 @@ public interface CampaignsMetricsDataFetcherService {
 
     DataFetcher<List<CampaignMetricDto>> filterByDatesAndDataSource();
 
+    DataFetcher<List<CampaignMetricDto>> filterByCampaign();
+
+    DataFetcher<List<CampaignMetricDto>> filterByDatesAndCampaign();
+
     DataFetcher<Long> getTotalClicks();
 }

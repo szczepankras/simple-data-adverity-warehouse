@@ -13,4 +13,7 @@ public interface FilterService {
 
     List<CampaignMetricDto> filterByDatesAndDateSource(LocalDate from, LocalDate to, String dataSource);
 
+    List<CampaignMetricDto> filterByCampaign(String campaign);
+
+    List<CampaignMetricDto> filterByDatesAndCampaign(LocalDate from, LocalDate to, String campaign);
 }
