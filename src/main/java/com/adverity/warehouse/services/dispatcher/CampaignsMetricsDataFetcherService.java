@@ -22,4 +22,8 @@ public interface CampaignsMetricsDataFetcherService {
     DataFetcher<Long> getTotalClicksByDataSource();
 
     DataFetcher<Long> getTotalClicksByCampaign();
+
+    DataFetcher<Long> getTotalImpressionsByDataSource();
+
+    DataFetcher<Long> getTotalImpressionsByCampaign();
 }

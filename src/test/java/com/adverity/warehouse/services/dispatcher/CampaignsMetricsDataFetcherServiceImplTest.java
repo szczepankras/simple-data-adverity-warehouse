@@ -92,4 +92,22 @@ class CampaignsMetricsDataFetcherServiceImplTest {
         //then
         assertNotNull(campaignMetricsDataFetcher);
     }
+
+    @Test
+    void shouldGetTotalImpressionsByDataSource() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByDataSource();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGetTotalImpressionsByCampaign() {
+        //when
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByCampaign();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
 }

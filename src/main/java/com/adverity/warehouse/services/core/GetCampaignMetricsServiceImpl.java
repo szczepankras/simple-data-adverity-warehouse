@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-//TODO remove me
+//TODO remove me or add paging
 public class GetCampaignMetricsServiceImpl implements GetCampaignMetricsService {
 
     private final CampaignMetricsRepository campaignMetricsRepository;

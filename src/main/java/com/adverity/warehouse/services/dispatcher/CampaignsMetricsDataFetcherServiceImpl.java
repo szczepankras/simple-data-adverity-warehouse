@@ -105,6 +105,24 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
         };
     }
 
+    @Override
+    public DataFetcher<Long> getTotalImpressionsByDataSource() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
+            log.info("total impressions requested with query={}", query);
+            return metricsAggregationService.totalImpressionsGroupByDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
+        };
+    }
+
+    @Override
+    public DataFetcher<Long> getTotalImpressionsByCampaign() {
+        return dataFetchingEnvironment -> {
+            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
+            log.info("total impressions requested with query={}", query);
+            return metricsAggregationService.totalImpressionGroupByCampaign(query.getName(), query.getDateFrom(), query.getDateTo());
+        };
+    }
+
     private Query getQuery(DataFetchingEnvironment dataFetchingEnvironment, Predicate<?> predicate, Parser parser) {
         return new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS), predicate, parser);
     }

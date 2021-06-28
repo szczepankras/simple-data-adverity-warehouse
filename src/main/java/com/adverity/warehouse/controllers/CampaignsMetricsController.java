@@ -63,6 +63,8 @@ public class CampaignsMetricsController {
                         .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFetcherService.filterByDatesAndCampaign())
                         .dataFetcher("totalClicksGroupedByDataSource", campaignsMetricsDataFetcherService.getTotalClicksByDataSource())
                         .dataFetcher("totalClicksGroupedByCampaign", campaignsMetricsDataFetcherService.getTotalClicksByCampaign())
+                        .dataFetcher("totalImpressionsGroupedByDataSource", campaignsMetricsDataFetcherService.getTotalImpressionsByDataSource())
+                        .dataFetcher("totalImpressionsGroupedByCampaign", campaignsMetricsDataFetcherService.getTotalImpressionsByCampaign())
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
                 .build();
     }

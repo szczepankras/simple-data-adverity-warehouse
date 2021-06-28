@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Slf4j
 public class MetricsAggregationServiceImpl implements MetricsAggregationService {
 
-    private CampaignMetricsRepository campaignMetricsRepository;
+    private final CampaignMetricsRepository campaignMetricsRepository;
 
     public MetricsAggregationServiceImpl(CampaignMetricsRepository campaignMetricsRepository) {
         this.campaignMetricsRepository = campaignMetricsRepository;
@@ -29,6 +29,22 @@ public class MetricsAggregationServiceImpl implements MetricsAggregationService 
         log.info("Fetch total clicks for campaign={} from data repository, status=started", campaign);
         Long result = campaignMetricsRepository.getTotalClicksByCampaignAndDateRange(campaign, from, to);
         log.info("Fetch total clicks for campaign={} from data repository, status=finished", campaign);
+        return result;
+    }
+
+    @Override
+    public Long totalImpressionsGroupByDataSource(String dataSource, LocalDate from, LocalDate to) {
+        log.info("Fetch total impressions for data source= {} from data repository, status=started", dataSource);
+        Long result = campaignMetricsRepository.getTotalImpressionsByDataSourceAndDateRange(dataSource, from, to);
+        log.info("Fetch total impressions for data source={} from data repository, status=finished", dataSource);
+        return result;
+    }
+
+    @Override
+    public Long totalImpressionGroupByCampaign(String campaign, LocalDate from, LocalDate to) {
+        log.info("Fetch total impressions for campaign={} from data repository, status=started", campaign);
+        Long result = campaignMetricsRepository.getTotalImpressionsByCampaignAndDateRange(campaign, from, to);
+        log.info("Fetch total impressions for campaign={} from data repository, status=finished", campaign);
         return result;
     }
 }
