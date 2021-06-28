@@ -8,22 +8,19 @@ import com.adverity.warehouse.repositories.CampaignRepository;
 import com.adverity.warehouse.repositories.DataSourceRepository;
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.adverity.warehouse.common.DataGeneratorHelper.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class SimpleDataAdverityWarehouseApplicationTests {
+class SimpleDataAdverityWarehouseApplicationTests {
 
     @Autowired
     private GraphQLTestTemplate graphQLTestTemplate;
@@ -43,18 +40,22 @@ public class SimpleDataAdverityWarehouseApplicationTests {
 
     private CampaignMetric campaignMetricGoogle, campaignMetricTwitter;
 
-    @Before
+    @BeforeEach
     public void init() {
         initData();
     }
 
-    @After
+    @AfterEach
     public void cleanUp() {
         cleanUpData();
     }
 
     @Test
-    public void getTotalClicksForGivenDataSource() throws Exception {
+    void contextLoads() {
+    }
+
+    @Test
+    void getTotalClicksForGivenDataSource() throws Exception {
 
         GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-data-source.graphql");
         assertThat(response.isOk()).isTrue();
