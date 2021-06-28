@@ -1,4 +1,4 @@
-package com.adverity.warehouse.services.query;
+package com.adverity.warehouse.services.query.validation;
 
 public class QueryParams {
 

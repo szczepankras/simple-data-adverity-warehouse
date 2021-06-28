@@ -3,9 +3,9 @@ package com.adverity.warehouse.services.query.validation;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static com.adverity.warehouse.services.query.QueryParams.*;
+import static com.adverity.warehouse.services.query.validation.QueryParams.*;
 
-public class TotalClicksPredicate implements Predicate<Map<String, String>> {
+public class StandardInputPredicate implements Predicate<Map<String, String>> {
 
     @Override
     public boolean test(Map<String, String> params) {

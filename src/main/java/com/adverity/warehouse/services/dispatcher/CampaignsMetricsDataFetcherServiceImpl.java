@@ -4,14 +4,15 @@ import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import com.adverity.warehouse.services.core.GetCampaignMetricsService;
 import com.adverity.warehouse.services.core.MetricsAggregationService;
 import com.adverity.warehouse.services.query.Query;
-import com.adverity.warehouse.services.query.validation.TotalClicksPredicate;
+import com.adverity.warehouse.services.query.validation.StandardInputPredicate;
+import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;
 import graphql.schema.DataFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.adverity.warehouse.services.query.QueryParams.QUERY_PARAMS;
+import static com.adverity.warehouse.services.query.validation.QueryParams.QUERY_PARAMS;
 
 @Service
 @Slf4j
@@ -34,7 +35,8 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     @Override
     public DataFetcher<Long> getTotalClicks() {
         return dataFetchingEnvironment -> {
-            Query query = new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS), new TotalClicksPredicate());
+            Query query = new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS),
+                    new StandardInputPredicate(), new StandardInputParser());
             log.info("total clicks requested with query={}", query);
             return metricsAggregationService.getTotalClicksForDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
         };
