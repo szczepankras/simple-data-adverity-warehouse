@@ -54,9 +54,9 @@ public class CampaignsMetricsControllerTest {
     }
 
     @Test
-    public void getTotalClicks() throws Exception {
+    public void getTotalClicksForGivenDataSource() throws Exception {
 
-        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks.graphql");
+        GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-data-source.graphql");
         assertThat(response.isOk()).isTrue();
         assertThat(response.get("$.data.totalClicks", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
     }
