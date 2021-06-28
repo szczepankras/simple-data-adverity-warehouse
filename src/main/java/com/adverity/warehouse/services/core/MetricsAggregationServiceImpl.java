@@ -55,8 +55,13 @@ public class MetricsAggregationServiceImpl implements MetricsAggregationService 
     @Override
     public Double ctrGroupByDataSource(String dataSource) {
         log.info("Calculate CTR for data source={}, status=started", dataSource);
-        Double result = (double) campaignMetricsRepository.getTotalClicksByDataSource(dataSource) /
-                campaignMetricsRepository.getTotalImpressionsByDataSource(dataSource);
+        Long totalClicks = campaignMetricsRepository.getTotalClicksByDataSource(dataSource);
+        Long totalImpression = campaignMetricsRepository.getTotalImpressionsByDataSource(dataSource);
+        if (totalClicks == null || totalImpression == null) {
+            log.info("Calculate CTR for campaign={}, reason=not present value, status=finished", dataSource);
+            return 0.0;
+        }
+        Double result = (double) totalClicks / totalImpression;
         log.info("Calculate CTR for data source={}, status=finished", dataSource);
         return result;
     }
@@ -64,8 +69,13 @@ public class MetricsAggregationServiceImpl implements MetricsAggregationService 
     @Override
     public Double ctrGroupByCampaign(String campaign) {
         log.info("Calculate CTR for campaign={}, status=started", campaign);
-        Double result = (double) campaignMetricsRepository.getTotalClicksByCampaign(campaign) /
-                campaignMetricsRepository.getTotalImpressionsByCampaign(campaign);
+        Long totalClicks = campaignMetricsRepository.getTotalClicksByCampaign(campaign);
+        Long totalImpression = campaignMetricsRepository.getTotalImpressionsByCampaign(campaign);
+        if (totalClicks == null || totalImpression == null) {
+            log.info("Calculate CTR for campaign={},reason=not present value, status=finished", campaign);
+            return 0.0;
+        }
+        Double result = (double) totalClicks / totalImpression;
         log.info("Calculate CTR for campaign={}, status=finished", campaign);
         return result;
     }

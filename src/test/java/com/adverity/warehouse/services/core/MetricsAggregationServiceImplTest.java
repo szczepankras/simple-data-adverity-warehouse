@@ -256,6 +256,34 @@ class MetricsAggregationServiceImplTest {
     }
 
     @Test
+    void shouldGetCTRZeroByDateSourceWhenOneOfValueIsNull() {
+        //given
+        String dateSource = "Google";
+
+        //when
+        when(campaignMetricsRepository.getTotalClicksByDataSource(dateSource)).thenReturn(null);
+        when(campaignMetricsRepository.getTotalImpressionsByDataSource(dateSource)).thenReturn(400L);
+        Double result = getTotalClicksService.ctrGroupByDataSource(dateSource);
+
+        //then
+        assertEquals(0, result);
+    }
+
+    @Test
+    void shouldGetCTRZeroByDateSourceWhenBothValuesAreNull() {
+        //given
+        String dateSource = "Google";
+
+        //when
+        when(campaignMetricsRepository.getTotalClicksByDataSource(dateSource)).thenReturn(null);
+        when(campaignMetricsRepository.getTotalImpressionsByDataSource(dateSource)).thenReturn(null);
+        Double result = getTotalClicksService.ctrGroupByDataSource(dateSource);
+
+        //then
+        assertEquals(0, result);
+    }
+
+    @Test
     void shouldGetCTRByCampaign() {
         //given
         String campaign = "Google";
@@ -267,6 +295,34 @@ class MetricsAggregationServiceImplTest {
 
         //then
         assertEquals(0.5, result);
+    }
+
+    @Test
+    void shouldGetCTRZeroByCampaignWhenOneOfValueIsNull() {
+        //given
+        String campaign = "Google";
+
+        //when
+        when(campaignMetricsRepository.getTotalClicksByCampaign(campaign)).thenReturn(200L);
+        when(campaignMetricsRepository.getTotalImpressionsByCampaign(campaign)).thenReturn(null);
+        Double result = getTotalClicksService.ctrGroupByCampaign(campaign);
+
+        //then
+        assertEquals(0.0, result);
+    }
+
+    @Test
+    void shouldGetCTRZeroByCampaignWhenBothValuesAreNull() {
+        //given
+        String campaign = "Google";
+
+        //when
+        when(campaignMetricsRepository.getTotalClicksByCampaign(campaign)).thenReturn(null);
+        when(campaignMetricsRepository.getTotalImpressionsByCampaign(campaign)).thenReturn(null);
+        Double result = getTotalClicksService.ctrGroupByCampaign(campaign);
+
+        //then
+        assertEquals(0.0, result);
     }
 
 }
