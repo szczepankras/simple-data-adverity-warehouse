@@ -3,37 +3,30 @@ package com.adverity.warehouse.services.dispatcher;
 import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import com.adverity.warehouse.services.core.FilterService;
 import com.adverity.warehouse.services.core.GetCampaignMetricsService;
-import com.adverity.warehouse.services.core.MetricsAggregationService;
 import com.adverity.warehouse.services.query.Query;
 import com.adverity.warehouse.services.query.validation.parsers.NameInputParser;
-import com.adverity.warehouse.services.query.validation.parsers.Parser;
 import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;
 import com.adverity.warehouse.services.query.validation.predicates.DateInputPredicate;
 import com.adverity.warehouse.services.query.validation.predicates.NameInputPredicate;
 import com.adverity.warehouse.services.query.validation.predicates.StandardInputPredicate;
 import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Predicate;
 
-import static com.adverity.warehouse.services.query.validation.QueryParams.QUERY_PARAMS;
+import static com.adverity.warehouse.services.dispatcher.Util.getQuery;
 
 @Service
 @Slf4j
-public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsDataFetcherService {
+public class CampaignsMetricsDataFilterDispatcherImpl implements CampaignsMetricsDataFilterDispatcher {
 
     private final GetCampaignMetricsService getCampaignMetricsService;
-    private final MetricsAggregationService metricsAggregationService;
     private final FilterService filterService;
 
-    public CampaignsMetricsDataFetcherServiceImpl(GetCampaignMetricsService getCampaignMetricsService,
-                                                  MetricsAggregationService metricsAggregationService,
-                                                  FilterService filterService) {
+    public CampaignsMetricsDataFilterDispatcherImpl(GetCampaignMetricsService getCampaignMetricsService,
+                                                    FilterService filterService) {
         this.getCampaignMetricsService = getCampaignMetricsService;
-        this.metricsAggregationService = metricsAggregationService;
         this.filterService = filterService;
     }
 
@@ -85,46 +78,6 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
             log.info("filter by dates and campaign name requested with query={}", query);
             return filterService.filterByDatesAndCampaign(query.getDateFrom(), query.getDateTo(), query.getName());
         };
-    }
-
-    @Override
-    public DataFetcher<Long> getTotalClicksByDataSourceAndDates() {
-        return dataFetchingEnvironment -> {
-            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
-            log.info("total clicks requested with query={}", query);
-            return metricsAggregationService.totalClicksGroupByDataSourceAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
-        };
-    }
-
-    @Override
-    public DataFetcher<Long> getTotalClicksByCampaignAndDates() {
-        return dataFetchingEnvironment -> {
-            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
-            log.info("total clicks requested with query={}", query);
-            return metricsAggregationService.totalClicksGroupByCampaignAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
-        };
-    }
-
-    @Override
-    public DataFetcher<Long> getTotalImpressionsByDataSourceAndDates() {
-        return dataFetchingEnvironment -> {
-            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
-            log.info("total impressions requested with query={}", query);
-            return metricsAggregationService.totalImpressionsGroupByDataSourceAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
-        };
-    }
-
-    @Override
-    public DataFetcher<Long> getTotalImpressionsByCampaignAndDates() {
-        return dataFetchingEnvironment -> {
-            Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
-            log.info("total impressions requested with query={}", query);
-            return metricsAggregationService.totalImpressionGroupByCampaignAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
-        };
-    }
-
-    private Query getQuery(DataFetchingEnvironment dataFetchingEnvironment, Predicate<?> predicate, Parser parser) {
-        return new Query(dataFetchingEnvironment.getArgument(QUERY_PARAMS), predicate, parser);
     }
 
 }

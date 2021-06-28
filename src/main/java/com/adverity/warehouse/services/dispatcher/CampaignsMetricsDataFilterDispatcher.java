@@ -5,7 +5,7 @@ import graphql.schema.DataFetcher;
 
 import java.util.List;
 
-public interface CampaignsMetricsDataFetcherService {
+public interface CampaignsMetricsDataFilterDispatcher {
 
     DataFetcher<List<CampaignMetricDto>> getCampaignMetrics();
 
@@ -19,11 +19,4 @@ public interface CampaignsMetricsDataFetcherService {
 
     DataFetcher<List<CampaignMetricDto>> filterByDatesAndCampaign();
 
-    DataFetcher<Long> getTotalClicksByDataSourceAndDates();
-
-    DataFetcher<Long> getTotalClicksByCampaignAndDates();
-
-    DataFetcher<Long> getTotalImpressionsByDataSourceAndDates();
-
-    DataFetcher<Long> getTotalImpressionsByCampaignAndDates();
 }

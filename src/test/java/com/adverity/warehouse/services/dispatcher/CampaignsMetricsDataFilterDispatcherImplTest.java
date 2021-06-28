@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class CampaignsMetricsDataFetcherServiceImplTest {
+class CampaignsMetricsDataFilterDispatcherImplTest {
 
     @InjectMocks
-    private CampaignsMetricsDataFetcherServiceImpl campaignsMetricsDataFetcherService;
+    private CampaignsMetricsDataFilterDispatcherImpl campaignsMetricsDataFetcherService;
 
     @BeforeEach
     void setup() {
@@ -70,42 +70,6 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     void shouldGetCampaignMetrics() {
         //when
         DataFetcher<List<CampaignMetricDto>> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getCampaignMetrics();
-
-        //then
-        assertNotNull(campaignMetricsDataFetcher);
-    }
-
-    @Test
-    void shouldGetTotalClicksByDataSource() {
-        //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByDataSourceAndDates();
-
-        //then
-        assertNotNull(campaignMetricsDataFetcher);
-    }
-
-    @Test
-    void shouldGetTotalClicksByCampaign() {
-        //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByCampaignAndDates();
-
-        //then
-        assertNotNull(campaignMetricsDataFetcher);
-    }
-
-    @Test
-    void shouldGetTotalImpressionsByDataSource() {
-        //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByDataSourceAndDates();
-
-        //then
-        assertNotNull(campaignMetricsDataFetcher);
-    }
-
-    @Test
-    void shouldGetTotalImpressionsByCampaign() {
-        //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByCampaignAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);

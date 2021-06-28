@@ -1,6 +1,7 @@
 package com.adverity.warehouse.controllers;
 
-import com.adverity.warehouse.services.dispatcher.CampaignsMetricsDataFetcherService;
+import com.adverity.warehouse.services.dispatcher.CampaignsMetricsDataAggregatorDispatcher;
+import com.adverity.warehouse.services.dispatcher.CampaignsMetricsDataFilterDispatcher;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
@@ -22,11 +23,14 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Controller
 public class CampaignsMetricsController {
-    private CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService;
+    private final CampaignsMetricsDataFilterDispatcher campaignsMetricsDataFilterDispatcher;
+    private final CampaignsMetricsDataAggregatorDispatcher campaignsMetricsDataAggregatorDispatcher;
     private GraphQL graphQL;
 
-    public CampaignsMetricsController(CampaignsMetricsDataFetcherService campaignsMetricsDataFetcherService) {
-        this.campaignsMetricsDataFetcherService = campaignsMetricsDataFetcherService;
+    public CampaignsMetricsController(CampaignsMetricsDataFilterDispatcher campaignsMetricsDataFilterDispatcher,
+                                      CampaignsMetricsDataAggregatorDispatcher campaignsMetricsDataAggregatorDispatcher) {
+        this.campaignsMetricsDataFilterDispatcher = campaignsMetricsDataFilterDispatcher;
+        this.campaignsMetricsDataAggregatorDispatcher = campaignsMetricsDataAggregatorDispatcher;
     }
 
     @Bean
@@ -55,17 +59,17 @@ public class CampaignsMetricsController {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics())
-                        .dataFetcher("filterByDateSource", campaignsMetricsDataFetcherService.filterByDataSource())
-                        .dataFetcher("filterByDates", campaignsMetricsDataFetcherService.filterByDates())
-                        .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFetcherService.filterByDatesAndDataSource())
-                        .dataFetcher("filterByCampaign", campaignsMetricsDataFetcherService.filterByCampaign())
-                        .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFetcherService.filterByDatesAndCampaign())
-                        .dataFetcher("totalClicksGroupedByDataSourceAndDate", campaignsMetricsDataFetcherService.getTotalClicksByDataSourceAndDates())
-                        .dataFetcher("totalClicksGroupedByCampaignAndDate", campaignsMetricsDataFetcherService.getTotalClicksByCampaignAndDates())
-                        .dataFetcher("totalImpressionsGroupedByDataSourceAndDate", campaignsMetricsDataFetcherService.getTotalImpressionsByDataSourceAndDates())
-                        .dataFetcher("totalImpressionsGroupByCampaignAndDate", campaignsMetricsDataFetcherService.getTotalImpressionsByCampaignAndDates())
-                        .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
+                        .dataFetcher("campaignMetrics", campaignsMetricsDataFilterDispatcher.getCampaignMetrics())
+                        .dataFetcher("filterByDateSource", campaignsMetricsDataFilterDispatcher.filterByDataSource())
+                        .dataFetcher("filterByDates", campaignsMetricsDataFilterDispatcher.filterByDates())
+                        .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFilterDispatcher.filterByDatesAndDataSource())
+                        .dataFetcher("filterByCampaign", campaignsMetricsDataFilterDispatcher.filterByCampaign())
+                        .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFilterDispatcher.filterByDatesAndCampaign())
+                        .dataFetcher("campaignMetrics", campaignsMetricsDataFilterDispatcher.getCampaignMetrics())
+                        .dataFetcher("totalClicksGroupedByDataSourceAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSourceAndDates())
+                        .dataFetcher("totalClicksGroupedByCampaignAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaignAndDates())
+                        .dataFetcher("totalImpressionsGroupedByDataSourceAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByDataSourceAndDates())
+                        .dataFetcher("totalImpressionsGroupByCampaignAndDate", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaignAndDates()))
                 .build();
     }
 }
