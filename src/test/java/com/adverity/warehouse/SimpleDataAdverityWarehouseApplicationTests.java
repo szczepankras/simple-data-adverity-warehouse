@@ -55,11 +55,11 @@ class SimpleDataAdverityWarehouseApplicationTests {
     }
 
     @Test
-    void getTotalClicksForGivenDataSource() throws Exception {
+    void getTotalClicksForGivenDataSourceAndDate() throws Exception {
 
         GraphQLResponse response = graphQLTestTemplate.postForResource("get-total-clicks-for-data-source.graphql");
         assertThat(response.isOk()).isTrue();
-        assertThat(response.get("$.data.totalClicksGroupedByDataSource", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
+        assertThat(response.get("$.data.totalClicksGroupedByDataSourceAndDate", Integer.class)).isEqualTo(campaignMetricGoogle.getClicks());
     }
 
     @Test

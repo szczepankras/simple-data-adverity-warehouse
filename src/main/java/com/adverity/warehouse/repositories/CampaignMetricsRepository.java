@@ -22,15 +22,27 @@ public interface CampaignMetricsRepository extends CrudRepository<CampaignMetric
 
     List<CampaignMetric> findByDateBetweenAndCampaignName(LocalDate from, LocalDate to, String name);
 
+    @Query(value = TOTAL_CLICKS_BY_DATA_SOURCE_NAME, nativeQuery = true)
+    Long getTotalClicksByDataSource(@Param("dataSource") String dataSource);
+
+    @Query(value = TOTAL_CLICKS_BY_CAMPAIGN_NAME, nativeQuery = true)
+    Long getTotalClicksByCampaign(@Param("campaign") String campaign);
+
+    @Query(value = TOTAL_IMPRESSIONS_BY_DATA_SOURCE_NAME, nativeQuery = true)
+    Long getTotalImpressionsByDataSource(@Param("dataSource") String dataSource);
+
+    @Query(value = TOTAL_IMPRESSIONS_BY_CAMPAIGN_NAME, nativeQuery = true)
+    Long getTotalImpressionsByCampaign(@Param("campaign") String campaign);
+
     @Query(value = TOTAL_CLICKS_BY_DATA_SOURCE_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
     Long getTotalClicksByDataSourceAndDateRange(@Param("dataSource") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
 
     @Query(value = TOTAL_CLICKS_BY_CAMPAIGN_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
-    Long getTotalClicksByCampaignAndDateRange(@Param("campaign") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
+    Long getTotalClicksByCampaignAndDateRange(@Param("campaign") String campaign, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
 
     @Query(value = TOTAL_IMPRESSIONS_BY_DATA_SOURCE_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
     Long getTotalImpressionsByDataSourceAndDateRange(@Param("dataSource") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
 
     @Query(value = TOTAL_IMPRESSIONS_BY_CAMPAIGN_NAME_IN_GIVEN_DATE_RANGE, nativeQuery = true)
-    Long getTotalImpressionsByCampaignAndDateRange(@Param("campaign") String dataSource, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
+    Long getTotalImpressionsByCampaignAndDateRange(@Param("campaign") String campaign, @Param("fromDate") LocalDate from, @Param("toDate") LocalDate to);
 }

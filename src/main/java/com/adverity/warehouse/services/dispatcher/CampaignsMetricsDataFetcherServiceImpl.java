@@ -88,38 +88,38 @@ public class CampaignsMetricsDataFetcherServiceImpl implements CampaignsMetricsD
     }
 
     @Override
-    public DataFetcher<Long> getTotalClicksByDataSource() {
+    public DataFetcher<Long> getTotalClicksByDataSourceAndDates() {
         return dataFetchingEnvironment -> {
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("total clicks requested with query={}", query);
-            return metricsAggregationService.totalClicksGroupByDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
+            return metricsAggregationService.totalClicksGroupByDataSourceAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
         };
     }
 
     @Override
-    public DataFetcher<Long> getTotalClicksByCampaign() {
+    public DataFetcher<Long> getTotalClicksByCampaignAndDates() {
         return dataFetchingEnvironment -> {
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("total clicks requested with query={}", query);
-            return metricsAggregationService.totalClicksGroupByCampaign(query.getName(), query.getDateFrom(), query.getDateTo());
+            return metricsAggregationService.totalClicksGroupByCampaignAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
         };
     }
 
     @Override
-    public DataFetcher<Long> getTotalImpressionsByDataSource() {
+    public DataFetcher<Long> getTotalImpressionsByDataSourceAndDates() {
         return dataFetchingEnvironment -> {
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("total impressions requested with query={}", query);
-            return metricsAggregationService.totalImpressionsGroupByDataSource(query.getName(), query.getDateFrom(), query.getDateTo());
+            return metricsAggregationService.totalImpressionsGroupByDataSourceAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
         };
     }
 
     @Override
-    public DataFetcher<Long> getTotalImpressionsByCampaign() {
+    public DataFetcher<Long> getTotalImpressionsByCampaignAndDates() {
         return dataFetchingEnvironment -> {
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("total impressions requested with query={}", query);
-            return metricsAggregationService.totalImpressionGroupByCampaign(query.getName(), query.getDateFrom(), query.getDateTo());
+            return metricsAggregationService.totalImpressionGroupByCampaignAndDate(query.getName(), query.getDateFrom(), query.getDateTo());
         };
     }
 

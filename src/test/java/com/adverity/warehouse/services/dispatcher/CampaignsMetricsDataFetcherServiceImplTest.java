@@ -78,7 +78,7 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     @Test
     void shouldGetTotalClicksByDataSource() {
         //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByDataSource();
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByDataSourceAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);
@@ -87,7 +87,7 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     @Test
     void shouldGetTotalClicksByCampaign() {
         //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByCampaign();
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalClicksByCampaignAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);
@@ -96,7 +96,7 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     @Test
     void shouldGetTotalImpressionsByDataSource() {
         //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByDataSource();
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByDataSourceAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);
@@ -105,7 +105,7 @@ class CampaignsMetricsDataFetcherServiceImplTest {
     @Test
     void shouldGetTotalImpressionsByCampaign() {
         //when
-        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByCampaign();
+        DataFetcher<Long> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getTotalImpressionsByCampaignAndDates();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);

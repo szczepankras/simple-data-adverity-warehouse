@@ -61,10 +61,10 @@ public class CampaignsMetricsController {
                         .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFetcherService.filterByDatesAndDataSource())
                         .dataFetcher("filterByCampaign", campaignsMetricsDataFetcherService.filterByCampaign())
                         .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFetcherService.filterByDatesAndCampaign())
-                        .dataFetcher("totalClicksGroupedByDataSource", campaignsMetricsDataFetcherService.getTotalClicksByDataSource())
-                        .dataFetcher("totalClicksGroupedByCampaign", campaignsMetricsDataFetcherService.getTotalClicksByCampaign())
-                        .dataFetcher("totalImpressionsGroupedByDataSource", campaignsMetricsDataFetcherService.getTotalImpressionsByDataSource())
-                        .dataFetcher("totalImpressionsGroupedByCampaign", campaignsMetricsDataFetcherService.getTotalImpressionsByCampaign())
+                        .dataFetcher("totalClicksGroupedByDataSourceAndDate", campaignsMetricsDataFetcherService.getTotalClicksByDataSourceAndDates())
+                        .dataFetcher("totalClicksGroupedByCampaignAndDate", campaignsMetricsDataFetcherService.getTotalClicksByCampaignAndDates())
+                        .dataFetcher("totalImpressionsGroupedByDataSourceAndDate", campaignsMetricsDataFetcherService.getTotalImpressionsByDataSourceAndDates())
+                        .dataFetcher("totalImpressionsGroupByCampaignAndDate", campaignsMetricsDataFetcherService.getTotalImpressionsByCampaignAndDates())
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFetcherService.getCampaignMetrics()))
                 .build();
     }
