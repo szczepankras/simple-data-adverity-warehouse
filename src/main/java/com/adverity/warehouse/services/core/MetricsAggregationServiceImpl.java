@@ -8,16 +8,16 @@ import java.time.LocalDate;
 
 @Service
 @Slf4j
-public class GetTotalClicksServiceImpl implements GetTotalClicksService {
+public class MetricsAggregationServiceImpl implements MetricsAggregationService {
 
     private CampaignMetricsRepository campaignMetricsRepository;
 
-    public GetTotalClicksServiceImpl(CampaignMetricsRepository campaignMetricsRepository) {
+    public MetricsAggregationServiceImpl(CampaignMetricsRepository campaignMetricsRepository) {
         this.campaignMetricsRepository = campaignMetricsRepository;
     }
 
     @Override
-    public Long getTotalClicks(String dataSource, LocalDate from, LocalDate to) {
+    public Long getTotalClicksForDataSource(String dataSource, LocalDate from, LocalDate to) {
         log.info("Fetch total clicks for {} from data repository, status=started", dataSource);
         Long result = campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange(dataSource, from, to);
         log.info("Fetch total clicks for {} from data repository, status=finished", dataSource);

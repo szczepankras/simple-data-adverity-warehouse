@@ -12,13 +12,13 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class GetTotalClicksServiceImplTest {
+class MetricsAggregationServiceImplTest {
 
     @Mock
     private CampaignMetricsRepository campaignMetricsRepository;
 
     @InjectMocks
-    private GetTotalClicksServiceImpl getTotalClicksService;
+    private MetricsAggregationServiceImpl getTotalClicksService;
 
     @BeforeEach
     void setup() {
@@ -34,7 +34,7 @@ class GetTotalClicksServiceImplTest {
 
         //when
         when(campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange(dataSource, from, to)).thenReturn(100L);
-        Long result = getTotalClicksService.getTotalClicks(dataSource, from, to);
+        Long result = getTotalClicksService.getTotalClicksForDataSource(dataSource, from, to);
 
         //then
         assertEquals(100L, result);
@@ -49,7 +49,7 @@ class GetTotalClicksServiceImplTest {
 
         //when
         when(campaignMetricsRepository.getTotalClicksByDataSourceAndDateRange("Known", from, to)).thenReturn(100L);
-        Long result = getTotalClicksService.getTotalClicks(dataSource, from, to);
+        Long result = getTotalClicksService.getTotalClicksForDataSource(dataSource, from, to);
 
         //then
         assertEquals(0L, result);
