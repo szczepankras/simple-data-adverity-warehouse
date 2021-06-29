@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface CsvTransformer {
 
-    List<CampaignMetric> transformCampaignMetrics(List<String[]> data, int column);
+    List<CampaignMetric> transformCampaignMetrics(List<String[]> data);
 
-    List<DataSource> transformDataSources(List<String[]> data, int column);
+    List<DataSource> transformDataSources(List<String[]> data);
 
-    List<Campaign> transformCampaigns(List<String[]> data, int column);
+    List<Campaign> transformCampaigns(List<String[]> data);
 }

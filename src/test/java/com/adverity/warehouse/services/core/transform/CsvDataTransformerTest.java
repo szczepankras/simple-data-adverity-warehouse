@@ -30,7 +30,7 @@ class CsvDataTransformerTest {
         List<String[]> input = initInput();
 
         //when
-        List<DataSource> dataSources = csvDataTransformer.transformDataSources(input, 0);
+        List<DataSource> dataSources = csvDataTransformer.transformDataSources(input);
 
         //then
         assertNotNull(dataSources);
@@ -44,7 +44,7 @@ class CsvDataTransformerTest {
         List<String[]> input = initInput();
 
         //when
-        List<Campaign> campaigns = csvDataTransformer.transformCampaigns(input, 1);
+        List<Campaign> campaigns = csvDataTransformer.transformCampaigns(input);
 
         //then
         assertNotNull(campaigns);
@@ -58,10 +58,12 @@ class CsvDataTransformerTest {
         List<String[]> input = initInput();
 
         //when
-        List<CampaignMetric> campaignMetrics = csvDataTransformer.transformCampaignMetrics(input, 1);
+        List<CampaignMetric> campaignMetrics = csvDataTransformer.transformCampaignMetrics(input);
 
         //then
         assertNotNull(campaignMetrics);
+        assertEquals("Google Ads", campaignMetrics.get(0).getDataSource().getName());
+        assertEquals("Campaign", campaignMetrics.get(0).getCampaign().getName());
         assertEquals("2019-01-12", campaignMetrics.get(0).getDate().toString());
         assertEquals(10, campaignMetrics.get(0).getClicks());
         assertEquals(100, campaignMetrics.get(0).getImpressions());

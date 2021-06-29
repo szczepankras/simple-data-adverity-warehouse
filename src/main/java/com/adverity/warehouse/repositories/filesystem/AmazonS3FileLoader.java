@@ -17,7 +17,7 @@ public class AmazonS3FileLoader implements FileStorageRepository {
 
     private String keyName;
     private String bucketName;
-    private String region;
+    private final String REGION = "eu-west-1";
 
     private InputStream inputStream;
 
@@ -25,7 +25,7 @@ public class AmazonS3FileLoader implements FileStorageRepository {
     public InputStream loadFile() {
         if (isInputValid()) {
             log.info("Loading data for Amazon S3, bucket={}, status=started", bucketName);
-            final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(region).build();
+            final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(REGION).build();
             S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
             inputStream = object.getObjectContent();
             log.info("Loading data for Amazon S3, bucket={}, status=finished", bucketName);
@@ -36,10 +36,9 @@ public class AmazonS3FileLoader implements FileStorageRepository {
         return InputStream.nullInputStream();
     }
 
-    public void setInput(String keyName, String bucketName, String region) {
+    public void setInput(String keyName, String bucketName) {
         this.keyName = keyName;
         this.bucketName = bucketName;
-        this.region = region;
     }
 
     private boolean isInputValid() {
@@ -47,9 +46,6 @@ public class AmazonS3FileLoader implements FileStorageRepository {
             return false;
         }
         if (bucketName == null || bucketName.isEmpty()) {
-            return false;
-        }
-        if (region == null || region.isEmpty()) {
             return false;
         }
         return true;

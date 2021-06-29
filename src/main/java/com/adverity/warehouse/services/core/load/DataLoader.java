@@ -1,13 +1,7 @@
 package com.adverity.warehouse.services.core.load;
 
-import org.springframework.stereotype.Component;
+public interface DataLoader {
 
-import java.util.List;
+    void loadFromS3(String keyName, String bucket);
 
-@Component
-public class DataLoader {
-
-    public void load(List<String[]> data) {
-
-    }
 }

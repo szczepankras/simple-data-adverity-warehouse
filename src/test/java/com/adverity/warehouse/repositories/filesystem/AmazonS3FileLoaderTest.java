@@ -23,9 +23,8 @@ class AmazonS3FileLoaderTest {
     void shouldReturnEmptyStreamWhenInputDataAreMissing() {
         //given
         String bucketName = null;
-        String region = null;
         String key = null;
-        amazonS3FileLoader.setInput(key, bucketName, region);
+        amazonS3FileLoader.setInput(key, bucketName);
 
         //when
         InputStream inputStream = amazonS3FileLoader.loadFile();
