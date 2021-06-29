@@ -3,6 +3,8 @@ package com.adverity.warehouse;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import com.adverity.warehouse.repositories.CampaignRepository;
 import com.adverity.warehouse.repositories.DataSourceRepository;
+import com.adverity.warehouse.repositories.filesystem.AmazonS3FileLoader;
+import com.adverity.warehouse.services.core.extract.DataParser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,12 +19,18 @@ public class SimpleDataAdverityWarehouseApplication {
 
     @Bean
     public CommandLineRunner demo(DataSourceRepository dataSourceRepository,
+                                  AmazonS3FileLoader fileStorageRepository,
+                                  DataParser dataParser,
                                   CampaignRepository campaignRepository,
                                   CampaignMetricsRepository campaignMetricsRepository) {
         return (args) -> {
 
-
-     /*       DataSource dataSource = new DataSource();
+       /*         String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
+             String bucketName = "adverity-challenge";
+             String region = "eu-west-1";
+             fileStorageRepository.setInput(keyName, bucketName, region);
+             List<String[]> list =  dataParser.parse(fileStorageRepository.loadFile());
+         DataSource dataSource = new DataSource();
             dataSource.setName("Google Ads");
 
             Campaign campaign = new Campaign();
