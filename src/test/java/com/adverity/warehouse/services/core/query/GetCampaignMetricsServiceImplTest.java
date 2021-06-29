@@ -73,15 +73,14 @@ class GetCampaignMetricsServiceImplTest {
     }
 
     @Test
-    //TODO revert me
     void shouldLoadFromS3() {
         //when
-  /*      getCampaignMetricsService.loadFromS3("file", "bucket");
+        getCampaignMetricsService.loadFromS3("file", "bucket");
 
         //then
         verify(dataLoader, times(1)).loadFromS3(keyArgCaptor.capture(), bucketArgCaptor.capture());
         assertEquals("file", keyArgCaptor.getValue());
-        assertEquals("bucket", bucketArgCaptor.getValue());*/
+        assertEquals("bucket", bucketArgCaptor.getValue());
     }
 
     @Test

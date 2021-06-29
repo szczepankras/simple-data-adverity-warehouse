@@ -87,7 +87,7 @@ class CampaignMetricsDataLoaderTest {
     }
 
     @Test
-    void shouldGetIdlePollingStatus() throws ExecutionException, InterruptedException {
+    void shouldGetCompletedPollingStatus() throws ExecutionException, InterruptedException {
         //given
         String key = "key";
         String bucket = "bucket";
