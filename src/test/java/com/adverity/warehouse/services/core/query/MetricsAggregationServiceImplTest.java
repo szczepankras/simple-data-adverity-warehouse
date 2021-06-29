@@ -1,4 +1,4 @@
-package com.adverity.warehouse.services.core;
+package com.adverity.warehouse.services.core.query;
 
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import org.junit.jupiter.api.BeforeEach;

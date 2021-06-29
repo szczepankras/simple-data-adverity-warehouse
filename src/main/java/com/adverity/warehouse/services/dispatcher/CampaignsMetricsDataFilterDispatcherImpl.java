@@ -1,8 +1,8 @@
 package com.adverity.warehouse.services.dispatcher;
 
 import com.adverity.warehouse.models.dto.CampaignMetricDto;
-import com.adverity.warehouse.services.core.FilterService;
-import com.adverity.warehouse.services.core.GetCampaignMetricsService;
+import com.adverity.warehouse.services.core.query.FilterService;
+import com.adverity.warehouse.services.core.query.GetCampaignMetricsService;
 import com.adverity.warehouse.services.query.Query;
 import com.adverity.warehouse.services.query.validation.parsers.NameInputParser;
 import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;

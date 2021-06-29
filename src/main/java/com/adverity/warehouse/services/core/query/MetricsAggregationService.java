@@ -1,4 +1,4 @@
-package com.adverity.warehouse.services.core;
+package com.adverity.warehouse.services.core.query;
 
 import java.time.LocalDate;
 

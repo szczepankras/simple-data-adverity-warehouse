@@ -1,6 +1,6 @@
 package com.adverity.warehouse.services.dispatcher;
 
-import com.adverity.warehouse.services.core.MetricsAggregationService;
+import com.adverity.warehouse.services.core.query.MetricsAggregationService;
 import com.adverity.warehouse.services.query.Query;
 import com.adverity.warehouse.services.query.validation.parsers.NameInputParser;
 import com.adverity.warehouse.services.query.validation.parsers.StandardInputParser;
