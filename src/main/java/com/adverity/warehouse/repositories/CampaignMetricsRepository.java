@@ -1,6 +1,8 @@
 package com.adverity.warehouse.repositories;
 
 import com.adverity.warehouse.models.CampaignMetric;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,8 @@ import java.util.List;
 import static com.adverity.warehouse.repositories.Queries.*;
 
 public interface CampaignMetricsRepository extends CrudRepository<CampaignMetric, Long> {
+
+    Page<CampaignMetric> findAll(Pageable pageable);
 
     List<CampaignMetric> findByDateBetween(LocalDate from, LocalDate to);
 

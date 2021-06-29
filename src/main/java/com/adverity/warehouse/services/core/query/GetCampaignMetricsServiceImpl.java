@@ -5,13 +5,13 @@ import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import com.adverity.warehouse.services.mappers.CampaignMetricsModelToDtoMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Slf4j
-//TODO remove me or add paging
 public class GetCampaignMetricsServiceImpl implements GetCampaignMetricsService {
 
     private final CampaignMetricsRepository campaignMetricsRepository;
@@ -24,9 +24,10 @@ public class GetCampaignMetricsServiceImpl implements GetCampaignMetricsService 
     }
 
     @Override
-    public List<CampaignMetricDto> getCampaignMetrics() {
+    public List<CampaignMetricDto> getCampaignMetrics(int page, int pageSize) {
         log.info("Fetch campaign metrics from data repository, status=started");
-        List<CampaignMetric> campaignMetricList = (List<CampaignMetric>) campaignMetricsRepository.findAll();
+        List<CampaignMetric> campaignMetricList = campaignMetricsRepository
+                .findAll(PageRequest.of(page, pageSize)).getContent();
         List<CampaignMetricDto> campaignMetricDtoList = campaignMetricsModelToDtoMapper.map(campaignMetricList);
         log.info("Fetch campaign metrics from data repository, status=finished");
         return campaignMetricDtoList;

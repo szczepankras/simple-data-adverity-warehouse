@@ -65,7 +65,6 @@ public class CampaignsMetricsController {
                         .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFilterDispatcher.filterByDatesAndDataSource())
                         .dataFetcher("filterByCampaign", campaignsMetricsDataFilterDispatcher.filterByCampaign())
                         .dataFetcher("filterByDatesAndCampaign", campaignsMetricsDataFilterDispatcher.filterByDatesAndCampaign())
-                        .dataFetcher("campaignMetrics", campaignsMetricsDataFilterDispatcher.getCampaignMetrics())
                         .dataFetcher("totalClicksGroupByCampaign", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByCampaign())
                         .dataFetcher("totalClicksGroupByDataSource", campaignsMetricsDataAggregatorDispatcher.getTotalClicksByDataSource())
                         .dataFetcher("totalImpressionsGroupByCampaign", campaignsMetricsDataAggregatorDispatcher.getTotalImpressionsByCampaign())

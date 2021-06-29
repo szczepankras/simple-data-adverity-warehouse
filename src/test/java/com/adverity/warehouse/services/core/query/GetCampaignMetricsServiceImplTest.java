@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import static com.adverity.warehouse.common.DataGeneratorHelper.createFakeCampaignMetricsList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,32 +37,32 @@ class GetCampaignMetricsServiceImplTest {
     @Test
     void shouldGetCampaignMetrics() {
         //given
-        Iterable<CampaignMetric> campaignMetrics = createFakeCampaignMetricsList();
+        Page<CampaignMetric> campaignMetrics = Page.empty();
 
         //when
-        when(campaignMetricsRepository.findAll()).thenReturn(campaignMetrics);
+        when(campaignMetricsRepository.findAll(any())).thenReturn(campaignMetrics);
         when(campaignMetricsModelToDtoMapper.map(anyList())).thenCallRealMethod();
-        List<CampaignMetricDto> campaignMetricList = getCampaignMetricsService.getCampaignMetrics();
+        List<CampaignMetricDto> campaignMetricList = getCampaignMetricsService.getCampaignMetrics(0, 5);
 
         //then
         assertNotNull(campaignMetricList);
-        assertEquals(campaignMetricList.size(), ((Collection<?>) campaignMetrics).size());
-        verify(campaignMetricsRepository, times(1)).findAll();
+        assertEquals(campaignMetricList.size(), campaignMetrics.getTotalElements());
+        verify(campaignMetricsRepository, times(1)).findAll(PageRequest.of(0, 5, Sort.unsorted()));
     }
 
     @Test
     void shouldReturnEmptyListWhenThereAreNotDataInRepository() {
         //given
-        Iterable<CampaignMetric> campaignMetrics = Collections.emptyList();
+        Page<CampaignMetric> campaignMetrics = Page.empty();
 
         //when
-        when(campaignMetricsRepository.findAll()).thenReturn(campaignMetrics);
-        List<CampaignMetricDto> campaignMetricList = getCampaignMetricsService.getCampaignMetrics();
+        when(campaignMetricsRepository.findAll(any())).thenReturn(campaignMetrics);
+        List<CampaignMetricDto> campaignMetricList = getCampaignMetricsService.getCampaignMetrics(0, 5);
 
         //then
         assertNotNull(campaignMetricList);
         assertTrue(campaignMetricList.isEmpty());
-        verify(campaignMetricsRepository, times(1)).findAll();
+        verify(campaignMetricsRepository, times(1)).findAll(PageRequest.of(0, 5, Sort.unsorted()));
     }
 
 }

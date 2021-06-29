@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GetCampaignMetricsService {
 
-    List<CampaignMetricDto> getCampaignMetrics();
+    List<CampaignMetricDto> getCampaignMetrics(int page, int pageSize);
 }

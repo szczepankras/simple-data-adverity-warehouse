@@ -32,7 +32,12 @@ public class CampaignsMetricsDataFilterDispatcherImpl implements CampaignsMetric
 
     @Override
     public DataFetcher<List<CampaignMetricDto>> getCampaignMetrics() {
-        return dataFetchingEnvironment -> getCampaignMetricsService.getCampaignMetrics();
+        return dataFetchingEnvironment -> {
+            int page = dataFetchingEnvironment.getArgument("page");
+            int pageSize = dataFetchingEnvironment.getArgument("pageSize");
+            log.info("get campaign metrics page={}, pageSize={}", page, pageSize);
+            return getCampaignMetricsService.getCampaignMetrics(page, pageSize);
+        };
     }
 
     @Override

@@ -28,8 +28,8 @@ public class SimpleDataAdverityWarehouseApplication {
                                   CampaignRepository campaignRepository,
                                   CampaignMetricsRepository campaignMetricsRepository) {
         return (args) -> {
-    /*
-            String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
+
+/*            String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
             String bucketName = "adverity-challenge";
             dataLoader.loadFromS3(keyName, bucketName);
 
@@ -39,6 +39,12 @@ public class SimpleDataAdverityWarehouseApplication {
 
             Campaign campaign = new Campaign();
             campaign.setName("First campaign");
+
+            DataSource dataSource3 = new DataSource();
+            dataSource3.setName("Google Ads2");
+
+            Campaign campaign3 = new Campaign();
+            campaign3.setName("Second campaign");
 
             CampaignMetric campaignMetric = new CampaignMetric();
             campaignMetric.setClicks(30);
@@ -60,6 +66,14 @@ public class SimpleDataAdverityWarehouseApplication {
             campaignMetric2.setDataSource(dataSource2);
             campaignMetric2.setDate(LocalDate.of(2021, 5, 10));
 
+
+            CampaignMetric campaignMetric3 = new CampaignMetric();
+            campaignMetric3.setClicks(10);
+            campaignMetric3.setImpressions(20);
+            campaignMetric3.setCampaign(campaign3);
+            campaignMetric3.setDataSource(dataSource3);
+            campaignMetric3.setDate(LocalDate.of(2021, 5, 10));
+
             dataSourceRepository.save(dataSource);
             campaignRepository.save(campaign);
             campaignMetricsRepository.save(campaignMetric);
@@ -67,6 +81,10 @@ public class SimpleDataAdverityWarehouseApplication {
             dataSourceRepository.save(dataSource2);
             campaignRepository.save(campaign2);
             campaignMetricsRepository.save(campaignMetric2);
+
+            dataSourceRepository.save(dataSource3);
+            campaignRepository.save(campaign3);
+            campaignMetricsRepository.save(campaignMetric3);
 */
 
         };

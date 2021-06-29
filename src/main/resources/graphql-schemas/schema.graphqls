@@ -14,7 +14,7 @@ type Query {
     totalClicksGroupedByCampaignAndDate(queryParams: [QueryParams]!): Float
     totalImpressionsGroupedByDataSourceAndDate(queryParams: [QueryParams]!): Float
     totalImpressionsGroupByCampaignAndDate(queryParams: [QueryParams]!): Float
-    campaignMetrics: [DataMetrics]
+    campaignMetrics(page: Int!, pageSize: Int!): [DataMetrics]
 }
 
 type DataMetrics {
