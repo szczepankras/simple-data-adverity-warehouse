@@ -41,7 +41,8 @@ public class GetCampaignMetricsServiceImpl implements GetCampaignMetricsService 
     @Override
     public void loadFromS3(String keyName, String bucket) {
         log.info("Load from Amazon S3 key={}, bucket={}, status=triggered", keyName, bucket);
-        dataLoader.loadFromS3(keyName, bucket);
+        //TODO revert me
+        // dataLoader.loadFromS3(keyName, bucket);
     }
 
     @Override

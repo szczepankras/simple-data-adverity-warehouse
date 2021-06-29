@@ -99,6 +99,6 @@ class CampaignMetricsDataLoaderTest {
         campaignMetricsDataLoader.loadFromS3(key, bucket);
 
         //then
-        assertEquals(PollingStatus.IDLE, campaignMetricsDataLoader.getPollingStatus());
+        assertEquals(PollingStatus.COMPLETED, campaignMetricsDataLoader.getPollingStatus());
     }
 }
