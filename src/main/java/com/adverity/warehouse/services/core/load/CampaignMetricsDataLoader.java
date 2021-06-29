@@ -87,7 +87,7 @@ public class CampaignMetricsDataLoader implements DataLoader {
             return PollingStatus.LOADING;
         }
         if (progressIndicator.get() == PollingStatus.COMPLETED.ordinal()) {
-            return PollingStatus.IDLE;
+            return PollingStatus.COMPLETED;
         }
         return PollingStatus.IDLE;
     }
