@@ -85,4 +85,20 @@ class CampaignMetricsDataLoaderTest {
         verify(dataSourceRepository, times(1)).saveAll(any());
         verify(campaignRepository, times(1)).saveAll(any());
     }
+
+    @Test
+    void shouldGetIdlePollingStatus() throws ExecutionException, InterruptedException {
+        //given
+        String key = "key";
+        String bucket = "bucket";
+
+        //when
+        CompletableFuture<InputStream> completableFuture = mock(CompletableFuture.class);
+        when(completableFuture.get()).thenReturn(InputStream.nullInputStream());
+        when(amazonS3FileLoader.loadFileFromS3Bucket(key, bucket)).thenReturn(completableFuture);
+        campaignMetricsDataLoader.loadFromS3(key, bucket);
+
+        //then
+        assertEquals(PollingStatus.IDLE, campaignMetricsDataLoader.getPollingStatus());
+    }
 }

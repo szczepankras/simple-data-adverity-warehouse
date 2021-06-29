@@ -60,6 +60,8 @@ public class CampaignsMetricsController {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("campaignMetrics", campaignsMetricsDataFilterDispatcher.getCampaignMetrics())
+                        .dataFetcher("loadFromS3", campaignsMetricsDataFilterDispatcher.loadFromS3())
+                        .dataFetcher("loadingS3Status", campaignsMetricsDataFilterDispatcher.loadingStatus())
                         .dataFetcher("filterByDateSource", campaignsMetricsDataFilterDispatcher.filterByDataSource())
                         .dataFetcher("filterByDates", campaignsMetricsDataFilterDispatcher.filterByDates())
                         .dataFetcher("filterByDatesAndDataSource", campaignsMetricsDataFilterDispatcher.filterByDatesAndDataSource())

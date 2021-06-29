@@ -1,6 +1,7 @@
 package com.adverity.warehouse.services.dispatcher;
 
 import com.adverity.warehouse.models.dto.CampaignMetricDto;
+import com.adverity.warehouse.services.core.load.PollingStatus;
 import graphql.schema.DataFetcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,6 +71,24 @@ class CampaignsMetricsDataFilterDispatcherImplTest {
     void shouldGetCampaignMetrics() {
         //when
         DataFetcher<List<CampaignMetricDto>> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.getCampaignMetrics();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldLoadFromS3() {
+        //when
+        DataFetcher campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.loadFromS3();
+
+        //then
+        assertNotNull(campaignMetricsDataFetcher);
+    }
+
+    @Test
+    void shouldGeLoadingStatus() {
+        //when
+        DataFetcher<PollingStatus> campaignMetricsDataFetcher = campaignsMetricsDataFetcherService.loadingStatus();
 
         //then
         assertNotNull(campaignMetricsDataFetcher);

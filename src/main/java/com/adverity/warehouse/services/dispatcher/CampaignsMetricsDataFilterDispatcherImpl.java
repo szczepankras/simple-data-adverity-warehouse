@@ -1,6 +1,7 @@
 package com.adverity.warehouse.services.dispatcher;
 
 import com.adverity.warehouse.models.dto.CampaignMetricDto;
+import com.adverity.warehouse.services.core.load.PollingStatus;
 import com.adverity.warehouse.services.core.query.FilterService;
 import com.adverity.warehouse.services.core.query.GetCampaignMetricsService;
 import com.adverity.warehouse.services.query.Query;
@@ -82,6 +83,26 @@ public class CampaignsMetricsDataFilterDispatcherImpl implements CampaignsMetric
             Query query = getQuery(dataFetchingEnvironment, new StandardInputPredicate(), new StandardInputParser());
             log.info("filter by dates and campaign name requested with query={}", query);
             return filterService.filterByDatesAndCampaign(query.getDateFrom(), query.getDateTo(), query.getName());
+        };
+    }
+
+    @Override
+    public DataFetcher<String> loadFromS3() {
+        return dataFetchingEnvironment -> {
+            String key = dataFetchingEnvironment.getArgument("key");
+            String bucket = dataFetchingEnvironment.getArgument("bucket");
+            log.info("Load from S3 requested key={}, bucket={}", key, bucket);
+            getCampaignMetricsService.loadFromS3(key, bucket);
+            return "Loading started....";
+        };
+    }
+
+    @Override
+    public DataFetcher<PollingStatus> loadingStatus() {
+        return dataFetchingEnvironment -> {
+            PollingStatus pollingStatus = getCampaignMetricsService.loadingStatus();
+            log.info("Polling for Amazon S3 file loading, status={}", pollingStatus);
+            return pollingStatus;
         };
     }
 

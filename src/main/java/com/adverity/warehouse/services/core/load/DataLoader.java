@@ -4,4 +4,5 @@ public interface DataLoader {
 
     void loadFromS3(String keyName, String bucket);
 
+    PollingStatus getPollingStatus();
 }

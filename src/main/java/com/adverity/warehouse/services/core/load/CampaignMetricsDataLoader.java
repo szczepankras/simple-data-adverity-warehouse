@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
@@ -29,6 +30,8 @@ public class CampaignMetricsDataLoader implements DataLoader {
     private final CampaignMetricsRepository campaignMetricsRepository;
     private final DataSourceRepository dataSourceRepository;
     private final CampaignRepository campaignRepository;
+
+    private final AtomicInteger progressIndicator = new AtomicInteger(PollingStatus.IDLE.ordinal());
 
     public CampaignMetricsDataLoader(FileStorageRepository amazonS3FileLoader, DataParser dataParser,
                                      CsvTransformer csvTransformer, CampaignMetricsRepository campaignMetricsRepository,
@@ -45,6 +48,7 @@ public class CampaignMetricsDataLoader implements DataLoader {
     @Async
     public void loadFromS3(String keyName, String bucket) {
         log.info("Load data from S3 and transforming, status=started");
+        progressIndicator.set(PollingStatus.LOADING.ordinal());
         List<String[]> extractedCsvDta = extractFromExternalSource(keyName, bucket);
         List<DataSource> dataSources = csvTransformer.transformDataSources(extractedCsvDta);
         List<Campaign> campaigns = csvTransformer.transformCampaigns(extractedCsvDta);
@@ -59,6 +63,7 @@ public class CampaignMetricsDataLoader implements DataLoader {
         try {
             extractedCsvDta = dataParser.parse(input.get());
         } catch (InterruptedException | ExecutionException e) {
+            progressIndicator.set(PollingStatus.IDLE.ordinal());
             e.printStackTrace();
             log.error("Data can't be loaded from give source");
         }
@@ -71,5 +76,19 @@ public class CampaignMetricsDataLoader implements DataLoader {
         campaignRepository.saveAll(campaigns);
         campaignMetricsRepository.saveAll(campaignMetrics);
         log.info("Persisting data in the store, status=finished");
+        progressIndicator.set(PollingStatus.COMPLETED.ordinal());
+    }
+
+    public PollingStatus getPollingStatus() {
+        if (progressIndicator.get() == PollingStatus.IDLE.ordinal()) {
+            return PollingStatus.IDLE;
+        }
+        if (progressIndicator.get() == PollingStatus.LOADING.ordinal()) {
+            return PollingStatus.LOADING;
+        }
+        if (progressIndicator.get() == PollingStatus.COMPLETED.ordinal()) {
+            return PollingStatus.IDLE;
+        }
+        return PollingStatus.IDLE;
     }
 }
