@@ -13,9 +13,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 class CampaignMetricsDataLoaderTest {
@@ -43,16 +47,19 @@ class CampaignMetricsDataLoaderTest {
     }
 
     @Test
-    void shouldLoadFromS3() {
+    void shouldLoadFromS3() throws ExecutionException, InterruptedException {
         //given
         String key = "key";
         String bucket = "bucket";
 
         //when
+        CompletableFuture<InputStream> completableFuture = mock(CompletableFuture.class);
+        when(completableFuture.get()).thenReturn(InputStream.nullInputStream());
+        when(amazonS3FileLoader.loadFileFromS3Bucket(key, bucket)).thenReturn(completableFuture);
         campaignMetricsDataLoader.loadFromS3(key, bucket);
 
         //then
-        verify(amazonS3FileLoader, times(1)).setInput(keyArgCaptor.capture(), bucketArgCaptor.capture());
+        verify(amazonS3FileLoader, times(1)).loadFileFromS3Bucket(keyArgCaptor.capture(), bucketArgCaptor.capture());
         assertEquals(key, keyArgCaptor.getValue());
         assertEquals(bucket, bucketArgCaptor.getValue());
         verify(dataParser, times(1)).parse(any());
@@ -62,12 +69,15 @@ class CampaignMetricsDataLoaderTest {
     }
 
     @Test
-    void shouldPersistToDatabase() {
+    void shouldPersistToDatabase() throws ExecutionException, InterruptedException {
         //given
         String key = "key";
         String bucket = "bucket";
 
         //when
+        CompletableFuture<InputStream> completableFuture = mock(CompletableFuture.class);
+        when(completableFuture.get()).thenReturn(InputStream.nullInputStream());
+        when(amazonS3FileLoader.loadFileFromS3Bucket(key, bucket)).thenReturn(completableFuture);
         campaignMetricsDataLoader.loadFromS3(key, bucket);
 
         //then

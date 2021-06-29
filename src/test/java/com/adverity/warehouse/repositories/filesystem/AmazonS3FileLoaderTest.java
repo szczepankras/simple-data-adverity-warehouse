@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -24,10 +25,9 @@ class AmazonS3FileLoaderTest {
         //given
         String bucketName = null;
         String key = null;
-        amazonS3FileLoader.setInput(key, bucketName);
 
         //when
-        InputStream inputStream = amazonS3FileLoader.loadFile();
+        CompletableFuture<InputStream> inputStream = amazonS3FileLoader.loadFileFromS3Bucket(key, bucketName);
 
         //then
         assertNotNull(inputStream);

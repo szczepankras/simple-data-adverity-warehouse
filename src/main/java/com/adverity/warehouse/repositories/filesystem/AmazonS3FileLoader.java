@@ -5,43 +5,39 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Repository
 public class AmazonS3FileLoader implements FileStorageRepository {
 
-    private String keyName;
-    private String bucketName;
     private final String REGION = "eu-west-1";
 
     private InputStream inputStream;
 
+    @Async
     @Override
-    public InputStream loadFile() {
-        if (isInputValid()) {
+    public CompletableFuture<InputStream> loadFileFromS3Bucket(String keyName, String bucketName) {
+        if (isInputValid(keyName, bucketName)) {
             log.info("Loading data for Amazon S3, bucket={}, status=started", bucketName);
             final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(REGION).build();
             S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
             inputStream = object.getObjectContent();
             log.info("Loading data for Amazon S3, bucket={}, status=finished", bucketName);
-            return inputStream;
+            return CompletableFuture.completedFuture(inputStream);
         } else {
             log.error("Invalid S3 params");
         }
-        return InputStream.nullInputStream();
+        return CompletableFuture.completedFuture(InputStream.nullInputStream());
     }
 
-    public void setInput(String keyName, String bucketName) {
-        this.keyName = keyName;
-        this.bucketName = bucketName;
-    }
-
-    private boolean isInputValid() {
+    private boolean isInputValid(String keyName, String bucketName) {
         if (keyName == null || keyName.isEmpty()) {
             return false;
         }

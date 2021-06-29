@@ -3,14 +3,17 @@ package com.adverity.warehouse;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import com.adverity.warehouse.repositories.CampaignRepository;
 import com.adverity.warehouse.repositories.DataSourceRepository;
-import com.adverity.warehouse.repositories.filesystem.AmazonS3FileLoader;
+import com.adverity.warehouse.repositories.filesystem.FileStorageRepository;
 import com.adverity.warehouse.services.core.extract.DataParser;
+import com.adverity.warehouse.services.core.load.DataLoader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class SimpleDataAdverityWarehouseApplication {
 
     public static void main(String[] args) {
@@ -19,17 +22,18 @@ public class SimpleDataAdverityWarehouseApplication {
 
     @Bean
     public CommandLineRunner demo(DataSourceRepository dataSourceRepository,
-                                  AmazonS3FileLoader fileStorageRepository,
+                                  FileStorageRepository fileStorageRepository,
+                                  DataLoader dataLoader,
                                   DataParser dataParser,
                                   CampaignRepository campaignRepository,
                                   CampaignMetricsRepository campaignMetricsRepository) {
         return (args) -> {
+    /*
+            String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
+            String bucketName = "adverity-challenge";
+            dataLoader.loadFromS3(keyName, bucketName);
 
-       /*         String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
-             String bucketName = "adverity-challenge";
-             String region = "eu-west-1";
-             fileStorageRepository.setInput(keyName, bucketName, region);
-             List<String[]> list =  dataParser.parse(fileStorageRepository.loadFile());
+
          DataSource dataSource = new DataSource();
             dataSource.setName("Google Ads");
 
