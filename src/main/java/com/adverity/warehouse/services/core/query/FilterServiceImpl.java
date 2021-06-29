@@ -5,6 +5,7 @@ import com.adverity.warehouse.models.dto.CampaignMetricDto;
 import com.adverity.warehouse.repositories.CampaignMetricsRepository;
 import com.adverity.warehouse.services.mappers.CampaignMetricsModelToDtoMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    @Cacheable("filteredByDataSource")
     public List<CampaignMetricDto> filterByDateSource(String dataSource) {
         log.info("Fetch campaign metrics from data repository by data source={} status=started", dataSource);
         List<CampaignMetric> campaignMetricList = campaignMetricsRepository.findByDataSourceName(dataSource);
@@ -54,6 +56,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    @Cacheable("filteredByCampaign")
     public List<CampaignMetricDto> filterByCampaign(String campaign) {
         log.info("Fetch campaign metrics from data repository by campaign={} status=started", campaign);
         List<CampaignMetric> campaignMetricList = campaignMetricsRepository.findByCampaignName(campaign);
