@@ -31,9 +31,8 @@ public class SimpleDataAdverityWarehouseApplication {
                                   CampaignMetricsRepository campaignMetricsRepository) {
         return (args) -> {
 
-/*            String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
+   /*      String keyName = "PIxSyyrIKFORrCXfMYqZBI.csv";
             String bucketName = "adverity-challenge";
-            dataLoader.loadFromS3(keyName, bucketName);
 
 
          DataSource dataSource = new DataSource();

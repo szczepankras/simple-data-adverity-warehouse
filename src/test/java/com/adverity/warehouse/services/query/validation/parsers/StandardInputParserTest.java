@@ -1,5 +1,6 @@
 package com.adverity.warehouse.services.query.validation.parsers;
 
+import com.adverity.warehouse.services.errors.exception.DateValidationError;
 import com.adverity.warehouse.services.errors.exception.WronglySpecifiedQueryParams;
 import com.adverity.warehouse.services.query.Query;
 import com.adverity.warehouse.services.query.validation.predicates.StandardInputPredicate;
@@ -55,5 +56,21 @@ class StandardInputParserTest {
 
         //then
         assertThrows(WronglySpecifiedQueryParams.class, () -> parser.parseParams(params, query));
+    }
+
+    @Test
+    void shouldThrownExceptionWhenWrongDateRangeProvided() {
+        //given
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put(NAME, "Adverity");
+        params.put(DATE_FROM, "2021-06-30");
+        params.put(DATE_TO, "2021-06-29");
+        Query query = mock(Query.class);
+
+        //when
+        Parser parser = new StandardInputParser();
+
+        //then
+        assertThrows(DateValidationError.class, () -> parser.parseParams(params, query));
     }
 }
