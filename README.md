@@ -16,7 +16,7 @@ You can play with the service by your own. Check links in the email from me as t
  <li> 'Swagger' documentation is on the tab "schema" in the playground environment </li>
  <li> App is deployed on free tier with below limitations </li>
     <ul>
-     <li> When there is no traffic over 30min, container is switched automatically to the sleeping mode. It means that first request takes longer as container is starting </li>
+     <li> <b>When there is no traffic over 30min, container is switched automatically to the sleeping mode. It means that first request takes longer as container is scaled up and starting </b> </li>
      <li> Database has limit up to 10k rows so there are just a few record there on which you can click around </li>
      <li> So because of above point also I disabled direct fetching from your file as it has more than 20k records </li>
      <li> Please don't run performance tests there :grin: </li>
