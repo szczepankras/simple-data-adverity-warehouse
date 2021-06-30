@@ -8,7 +8,7 @@ Thank you for interesting challenge. Below guide and conclusions.
 
 https://www.youtube.com/watch?v=ciuQhwM48z8
 
-You can play with the service by your own. Check links in the email from me as this file is public and my "heroku-dyno" instance won't survie any DDoS :grinning:.
+You can play with the service by your own. Check links in the email from me as this instruction is public and my "heroku-dyno" instance won't survie any DDoS :grinning:
 <h3> Demo notes </h3>
 <ul>
  <li> Watch above YouTube live demo first </hi>
@@ -26,7 +26,7 @@ You can play with the service by your own. Check links in the email from me as t
  <h3> Tech stack </h3>
 <ul>
   <li> As the requirement we should provide flexible and efficient way of querying. So becuase of this reason I decided to use GraphQL https://graphql.org/ </li>
-  <li> It helps to query data in flexible way without tons of customized endpoints with complex query params structure </li>
+  <li> It helps to query data in flexible way without tons of customized endpoints with complex query/body params structures </li>
   <li> I load file directly from yor S3 bucket </li>
   <li> As a data store I've used your favourite one - PostrgreSQL :) </li>
   <li> App bases on Spring Boot and the spring releated modules like Srping Data JPA.
@@ -54,6 +54,12 @@ You can play with the service by your own. Check links in the email from me as t
 	<li> Operation statuses and their attirbutes are logged </li>
 	<li> sessions, requests-ids, user-agent etc. are not provided explictily in the logs for better clarity for this demo project </li>
 </ul>
+
+<h3> DevOps </h3>
+	<li> As mentioned in the "Demo" section app is deployed on Heroku. Btw. really nice AWS alternative for non enterprise apps. </li>
+	<li> Because of above I didn't configure docker image for the project </li>
+</ul>
+
  <h3> Sample queries on live instance </h3>
   <ul>
    <li>Total Clicks for a given Datasource for a given Date range
