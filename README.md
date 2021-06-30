@@ -55,6 +55,11 @@ You can play with the service by your own. Check links in the email from me as t
 	<li> sessions, requests-ids, user-agent etc. are not provided explictily in the logs for better clarity for this demo project </li>
 </ul>
 
+<h3> Validation and error handling </h3>
+	<li> The power of GraphQL is that mostly it handles incorrect inputs base on the schema definitions </li>
+	<li> Some more advanced validation (like correct date range) is done manually </li>
+</ul>
+
 <h3> DevOps </h3>
 	<li> As mentioned in the "Demo" section app is deployed on Heroku. Btw. really nice AWS alternative for non enterprise apps. </li>
 	<li> Because of above I didn't configure docker image for the project </li>
