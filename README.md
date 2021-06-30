@@ -40,6 +40,7 @@ You can play with the service by your own. Check links in the email from me as t
 	 <li> Database is normalized according the Boyce–Codd normal form. That's why we have 3 tables 
 	 <li> For aggreation queries caching is added </li>
 	 <li> I would create indexes for database as well (skipped scripts in this project) </li>
+	 <li> Paging is implemented and exposed through persistent layer </li>
 	 <li> IO and transforming operations are done asynchronously on the thread pool </li>
    </ul>
 </ul>
