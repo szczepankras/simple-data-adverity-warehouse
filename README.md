@@ -12,7 +12,7 @@ You can play with the service by your own. Check links in the email from me as t
 <h3> Demo notes </h3>
 <ul>
  <li> Watch above YouTube live demo first </hi>
- <li> I highly recommend to use "playground" which is deployed with the project. It has nice suggestions. Of course you can use any http client like Postman as well (link also provided in the email). </li>	
+ <li> I highly recommend to use "playground" which is deployed with the project. It has nice suggestions. Of course you can use any http client like Postman as well (link also provided in the email) </li>	
  <li> 'Swagger' documentation is on the tab "schema" in the playground environment </li>
  <li> App is deployed on free tier with below limitations </li>
     <ul>
@@ -29,7 +29,7 @@ You can play with the service by your own. Check links in the email from me as t
   <li> It helps to query data in flexible way without tons of customized endpoints with complex query/body params structures </li>
   <li> I load file directly from yor S3 bucket </li>
   <li> As a data store I've used your favourite one - PostrgreSQL :) </li>
-  <li> App bases on Spring Boot and the spring releated modules like Srping Data JPA.
+  <li> App bases on Spring Boot and the spring releated modules like Srping Data JPA
   <li> Further details you will see in the code :relieved: </li>
  </ul>
 
@@ -37,16 +37,16 @@ You can play with the service by your own. Check links in the email from me as t
 <ul>
  <li> As data are rather historic and most likely are exposed for read the following applies: </li>
    <ul>
-	 <li> Database is normalized according the Boyce–Codd normal form. That's why we have 3 tables. 
+	 <li> Database is normalized according the Boyce–Codd normal form. That's why we have 3 tables 
 	 <li> For aggreation queries caching is added </li>
-	 <li> I would create indexes for database as well (skipped scripts in this project). </li>
+	 <li> I would create indexes for database as well (skipped scripts in this project) </li>
 	 <li> IO and transforming operations are done asynchronously on the thread pool </li>
    </ul>
 </ul>
 
 <h3> Tests </h3>
 <ul>
-	<li> There are integeration tests included where you can check business scenarios. Please check also sample grapqhl queries in the tests resources. </li>
+	<li> There are integeration tests included where you can check business scenarios. Please check also sample grapqhl queries in the tests resources </li>
 	<li> Unit tests if it's not obvious :yum: </li>
 </ul>
 
@@ -61,7 +61,7 @@ You can play with the service by your own. Check links in the email from me as t
 </ul>
 
 <h3> DevOps </h3>
-	<li> As mentioned in the "Demo" section app is deployed on Heroku. Btw. really nice AWS alternative for non enterprise apps. </li>
+	<li> As mentioned in the "Demo" section app is deployed on Heroku. Btw. really nice AWS alternative for none enterprise apps </li>
 	<li> Because of above I didn't configure docker image for the project </li>
 </ul>
 
